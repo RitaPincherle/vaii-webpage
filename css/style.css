@@ -16,7 +16,7 @@ body {
 }
 
 .wrapper {
-    margin: 1.5em;
+    margin: 0 1.5em 1.5em;
 }
 
 .container-center {
@@ -58,7 +58,7 @@ header {
     display: block;
 }
 
-/* Mobile menu styles */
+
 .menu-open img {
     height: 60px;
 }
@@ -118,7 +118,7 @@ nav ul li img {
     }
 
     .wrapper {
-        margin: 0 4em;
+        margin: 0 4em 0 4em;
     }
 
     header {
