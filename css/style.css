@@ -1,0 +1,153 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    background-color: #fdee96;
+    font-family: "Berlin Sans FB", sans-serif;
+}
+
+.hide-mobile {
+    display: none;
+}
+
+.wrapper {
+    margin: 1.5em;
+}
+
+.container-center {
+    text-align: center;
+    padding: 3em;
+}
+
+/* Header styles */
+header {
+    width: 100%;
+    background-color: rgba(11, 52, 106, 0.96);
+    box-shadow: 3px 3px 5px rgba(27, 36, 124, 0.21);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: .3em;
+}
+
+.header-left a {
+    text-decoration: none;
+    color: #ffe25e;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 1em;
+}
+
+/* Hope button styles */
+.hope-button {
+    background-color: #FFA800;
+    color: black;
+    padding: 1em;
+    width: 50%;
+    margin: 1em auto 0;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border-radius: .3em;
+    display: block;
+}
+
+/* Mobile menu styles */
+.menu-open img {
+    height: 60px;
+}
+
+nav ul {
+    list-style: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 30%;
+    margin: 0;
+    padding: 1em;
+    background-color: rgba(14, 116, 193, 0.96);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 360;
+}
+
+nav ul li {
+    margin-bottom: 2em;
+}
+
+nav ul li:nth-of-type(1) {
+    margin-bottom: 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffe25e;
+}
+
+nav ul li img {
+    height: 26px;
+}
+
+.open {
+    transform: translateX(0%);
+}
+
+/* Media query for larger screens */
+@media(min-width: 798px) {
+    .hide-mobile {
+        display: block;
+    }
+
+    .hide-desktop {
+        display: none;
+    }
+
+    .wrapper {
+        margin: 0 4em;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav ul {
+        position: unset;
+        background: none;
+        display: flex;
+        gap: 2em;
+        transform: translateX(0%);
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        height: auto;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0;
+        padding: 1em;
+    }
+
+    nav ul li a {
+        font-size: 1em;
+        text-align: center;
+        text-wrap: nowrap;
+    }
+}

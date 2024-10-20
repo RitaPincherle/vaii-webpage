@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Reviews</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div class="header-left">
+            <a href="index.html">Movie Reviews</a>
+        </div>
+
+        <nav>
+            <a href="#" class="menu-open hide-desktop">
+                <img src="icons/menu.png" alt="Open menu">
+            </a>
+
+            <ul class = "sidebar">
+                <li class="hide-desktop">
+                    <a href="#" class="menu-close">
+                        <img src="icons/close.png" alt="Close menu">
+                    </a>
+                </li>
+
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Series</a></li>
+                <li><a href="about_us.html">About us</a></li>
+                <li><a href="login.html">
+                    <img src="icons/login.png" alt="Login icon">
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container-center">
+            <h1>Here will be</h1>
+            <h2>something interesting</h2>
+            <a href="#" class="hope-button">HOPEFULLY</a>
+        </div>
+    </main>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menu = document.querySelector('.sidebar');
+        const menuButton = document.querySelector('.menu-open');
+        const closeButton = document.querySelector('.menu-close');
+
+        const toggleMenu = (isOpen) => {
+            menu.classList.toggle('open', isOpen);
+        };
+
+        menuButton.addEventListener('click', () => toggleMenu(true));
+        closeButton.addEventListener('click', () => toggleMenu(false));
+    });
+</script>
+
+</body>
+</html>
