@@ -1,7 +1,137 @@
-.navbar {
-    border-bottom: 1px solid grey;
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.navbar-brand img {
-    width: 50px;
+/* Body and Main Content */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff; /* White text */
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1c1c1c; /* Darker black navbar for a sleek look */
+    border-bottom: 1px solid #333; /* Subtle border at the bottom */
+}
+
+.navbar .navbar-brand img {
+    width: 120px; /* Slightly smaller logo */
+    transition: width 0.3s ease; /* Smooth logo size transition */
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #9b59b6; /* Purple color for links */
+    font-weight: 500;
+    padding: 10px 15px; /* Padding for larger click area */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effects */
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus {
+    color: #bb86fc; /* Lighter purple on hover */
+    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
+    border-radius: 5px; /* Rounded corners for the link */
+}
+
+/* Navbar items on mobile */
+.navbar-collapse {
+    font-size: 14px; /* Smaller font size for mobile */
+}
+
+.navbar-toggler-icon {
+    background-color: #9b59b6; /* Purple color for the hamburger icon */
+}
+
+/* Footer */
+footer {
+    background-color: #1c1c1c; /* Dark footer */
+    color: #aaa; /* Lighter text for footer */
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+    border-top: 1px solid #333; /* Subtle footer border */
+}
+
+footer a {
+    color: #9b59b6; /* Purple color for footer links */
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #bb86fc; /* Lighter purple on hover */
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+/* Minimalist Cards or Content Blocks */
+.web-content {
+    background-color: #1c1c1c;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #9b59b6; /* Purple headers */
+    margin-bottom: 20px;
+}
+
+/* Links and Text */
+a {
+    text-decoration: none;
+    color: inherit; /* Use inherited color */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+a:hover {
+    color: #9b59b6; /* Purple on hover */
+}
+
+/* Mobile Styling */
+@media (max-width: 767px) {
+    .navbar-brand img {
+        width: 100px; /* Smaller logo on mobile */
+    }
+
+    .navbar-nav .nav-link {
+        padding: 8px 10px; /* Smaller padding on mobile */
+        font-size: 14px; /* Smaller font size for mobile */
+    }
+
+    .web-content {
+        padding: 15px; /* Less padding on mobile */
+    }
+
+    footer {
+        font-size: 12px; /* Smaller text in footer */
+    }
+
+    /* Center content on mobile */
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Utility Classes */
+.text-purple {
+    color: #9b59b6;
+}
+
+.text-purple:hover {
+    color: #bb86fc;
+}
+
+.text-center {
+    text-align: center;
 }

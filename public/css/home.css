@@ -1,0 +1,41 @@
+/* List Group Styling */
+.list-group {
+    background-color: #1c1c1c; /* Dark background for the list group */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: #1c1c1c; /* Dark background for each item */
+    border: 1px solid #333; /* Subtle border to separate items */
+    color: #aaa; /* Light text color */
+    font-size: 16px; /* Slightly larger text for readability */
+    padding: 12px 15px; /* Padding for better spacing */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover transitions */
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+    background-color: #9b59b6; /* Purple background on hover */
+    color: #fff; /* White text when hovered */
+    border-color: #9b59b6; /* Purple border when hovered */
+}
+
+.list-group-item.active {
+    background-color: #9b59b6; /* Purple background for active item */
+    border-color: #9b59b6; /* Purple border for active item */
+    color: #fff; /* White text for active item */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+    .list-group-item {
+        font-size: 14px; /* Smaller text on mobile */
+        padding: 10px 12px; /* Smaller padding for mobile */
+    }
+
+    .list-group {
+        margin-top: 15px; /* Reduce top margin for mobile */
+    }
+}
