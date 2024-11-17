@@ -48,12 +48,12 @@
                     </div>
                 </div>
 
-                <!-- Movie Item 2 -->
+
                 <div class="col-lg-3 col-md-4 col-6 mb-4">
                     <div class="card shadow-sm">
                         <img src="https://picsum.photos/200/300?image=40" class="card-img-top" alt="Movie 2">
                         <div class="card-body">
-                            <h5 class="card-title">Movie Title 2</h5>
+                            <h5 class="card-title">Book Title 2</h5>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             <p class="text-muted">Rating: 8.1</p>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="card shadow-sm">
                         <img src="https://picsum.photos/200/300?image=50" class="card-img-top" alt="Movie 3">
                         <div class="card-body">
-                            <h5 class="card-title">Movie Title 3</h5>
+                            <h5 class="card-title">Series Title 3</h5>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             <p class="text-muted">Rating: 6.3</p>
                         </div>
@@ -89,10 +89,10 @@
         <!-- Sidebar (on larger screens) -->
         <div class="col-lg-3 col-12 mt-4 mt-lg-0">
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active">Trending Movies</a>
+                <a href="#" class="list-group-item list-group-item-action active">Trending Books</a>
                 <a href="#" class="list-group-item list-group-item-action">Top Rated Movies</a>
-                <a href="#" class="list-group-item list-group-item-action">New Releases</a>
-                <a href="#" class="list-group-item list-group-item-action">Upcoming Movies</a>
+                <a href="#" class="list-group-item list-group-item-action">New Book Releases</a>
+                <a href="#" class="list-group-item list-group-item-action">Upcoming Series</a>
             </div>
         </div>
     </div>

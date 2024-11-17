@@ -39,4 +39,16 @@ class HomeController extends AControllerBase
     {
         return $this->html();
     }
+    public function books(): Response
+    {
+        return $this->html();
+    }
+    public function series(): Response
+    {
+        return $this->html();
+    }
+    public function movies(): Response
+    {
+        return $this->html();
+    }
 }

@@ -45,6 +45,9 @@
                         <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= $link->url("post.add") ?>">Pridať recenziu</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= $link->url("auth.logout") ?>">Odhlásenie</a>
                     </li>
                 </ul>
