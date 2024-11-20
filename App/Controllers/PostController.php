@@ -14,11 +14,16 @@ class PostController extends AControllerBase
      */
     public function index(): Response
     {
-        return $this->redirect($this->url("post.add"));
+        return $this->redirect($this->url("home.index"));
     }
 
     public function add(): Response {
+
         return $this->html("post.add");
+    }
+    public function edit(): Response {
+
+        return $this->html("post.edit");
     }
     public function upload(): Response {
         $post = new Post();

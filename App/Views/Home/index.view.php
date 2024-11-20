@@ -51,6 +51,7 @@ use App\Models\Post;
                                 <h5 class="card-title"><?php echo $data[$i]->getNazov()?></h5>
                                 <p class="card-text"> <?php echo mb_substr($data[$i]->getText(), 0, 60) . (mb_strlen($data[$i]->getText()) > 60 ? '...' : '') ?></p>
                                 <p class="text-muted">Rating: <?php echo $data[$i]->getRating()?></p>
+                                <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>" class="btn btn-sm btn-primary">Upraviť</a>
                             </div>
                         </div>
 

@@ -1,7 +1,8 @@
 <?php
-/** @var Array $data
+/**
  * @var \App\Core\LinkGenerator $link
  */
+
 ?>
 <head>
     <link rel="stylesheet" href="public/css/form.css">
@@ -12,8 +13,9 @@
         <form action="<?= $link->url("post.upload") ?>" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="reviewTitle" class="form-label text-purple">Review Title</label>
-                <input type="text" class="form-control bg-dark text-light" id="title" name="title" placeholder="Enter the title of your review" required>
+                <input type="text" class="form-control bg-dark text-light" id="title" name="title"  placeholder="Enter the title of your review" required>
             </div>
+
             <div class="mb-3">
                 <label for="reviewCategory" class="form-label text-purple">Category</label>
                 <select class="form-select bg-dark text-light" id="typ_postu" name="typ_postu" required>
@@ -22,6 +24,7 @@
                     <option value = 3>Series</option>
                 </select>
             </div>
+
             <div class="mb-3">
                 <label for="reviewContent" class="form-label text-purple">Review Content</label>
                 <textarea class="form-control bg-dark text-light" id="text" name="text" rows="6" placeholder="Write your review here..." required></textarea>
@@ -29,7 +32,7 @@
             <div class="mb-3">
                 <label for="rating" class="form-label text-purple">Rating (1 to 5)</label>
                 <input type="number" class="form-control bg-dark text-light" id="rating" name="rating" min="1" max="5" placeholder="Enter a rating between 1 and 5" required>
-                <small class="text-muted">Please enter a number between 1 and 5.</small>
+                <small class="text-muted-white">Please enter a number between 1 and 5.</small>
             </div>
 
             <div class="mb-3">

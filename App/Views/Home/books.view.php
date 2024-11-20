@@ -1,3 +1,9 @@
+<?php
+/** @var Array $data
+ * @var \App\Core\LinkGenerator $link
+ */
+?>
+
 <main class="container-fluid mt-4">
     <section class="book-reviews-section">
         <h1 class="text-center text-purple">Book Reviews</h1>
@@ -10,13 +16,13 @@
             <div class="col-lg-9 col-12">
                 <div class="row">
                     <?php
-                    // Displaying 10 images in 3 rows
-                    for ($i = 1; $i <= 10; $i++) {
+                    $i = 1;
+                    foreach ($data['posts'] as $post):
                         echo '<div class="col-md-4 col-6 mb-3">';
-                        echo '<img src="https://picsum.photos/300/200?random=' . $i . '" alt="Book ' . $i . '" class="img-fluid rounded shadow-sm">';
+                        echo '<img src="' . $post->getObrazok() .  '" alt="Book ' . $i . '" class="img-fluid rounded shadow-sm">';
                         echo '</div>';
-                    }
-                    ?>
+                        $i++;
+                    endforeach; ?>
                 </div>
             </div>
 

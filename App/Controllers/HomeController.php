@@ -3,8 +3,11 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\DB\Connection;
 use App\Core\Responses\Response;
+use App\Models\Favourite;
 use App\Models\Post;
+use PDO;
 
 /**
  * Class HomeController
@@ -44,7 +47,33 @@ class HomeController extends AControllerBase
     }
     public function books(): Response
     {
-        return $this->html();
+        $posts = Post::getAll();
+        $data = array();
+        $autor = $_SESSION['user'];
+
+//        $favourites = Favourite::getAll("autor = $autor");
+        $con = Connection::connect();
+        $stmt = $con->prepare("SELECT p.obrazok AS obrazok, p.nazov AS NAZOV, 
+        p.id AS ID, p.typ_postu AS typ, p.autor AS autor, 
+        p.rating AS rating, p.text AS text 
+            FROM posts p JOIN favourites f 
+                ON f.id_postu = p.id 
+                    WHERE p.typ_postu = 2 AND f.id_autor LIKE :autor");
+        // AND f.id_autor like $autor
+        $stmt->execute(['autor' => $autor]);
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        foreach ($posts as $post) {
+            if ($post->getTypPostu() == 2) {
+                $data[] = $post;
+            }
+        }
+
+        return $this->html(
+            [
+                'posts' => $data,
+//                'favourites' => $favourites,
+                'favourites'=>$results
+            ]);
     }
     public function series(): Response
     {
