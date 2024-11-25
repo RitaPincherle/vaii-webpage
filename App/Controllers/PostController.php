@@ -71,6 +71,10 @@ class PostController extends AControllerBase
         );
     }
 
+    /**
+     * @throws HTTPException
+     * @throws \Exception
+     */
     public function upload(): Response
     {
         $id = (int)$this->request()->getValue('id');
@@ -105,7 +109,7 @@ class PostController extends AControllerBase
                 if ($oldFileName != "") {
                     FileStorage::deleteFile($oldFileName);
                 }
-                $fnuk = $this->request()->getFiles()['imageFile'];
+
                 $newFileName = FileStorage::saveFile($this->request()->getFiles()['imageFile']);
                 $post->setObrazok($newFileName);
                 $post->setIsURL(0);
@@ -124,8 +128,8 @@ class PostController extends AControllerBase
     private function formErrors(): array
     {
         $errors = [];
-        if ($this->request()->getFiles()['imageFile'] == "" || $this->request()->getValue("imageUrl")) {
-            $errors[] = "Pole Súbor/URL obrázka musí byť vyplnené!";
+        if ($this->request()->getFiles()['imageFile'] == "" && $this->request()->getValue("imageUrl") == "") {
+            $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
         }
         if ($this->request()->getValue('text') == "") {
             $errors[] = "Pole Text príspevku musí byť vyplnené!";

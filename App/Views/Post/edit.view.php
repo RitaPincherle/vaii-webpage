@@ -38,13 +38,18 @@ use App\Models\Post;
             </div>
 
             <div class="mb-3">
+
                 <label for="imageOption" class="form-label text-purple">Upload Image</label>
+                <div>Pôvodný súbor: <?= @$data['post']?->getObrazok() ?></div>
 
                 <!-- Rectangular Toggle Switch -->
                 <div class="custom-toggle">
+
                     <label class="toggle-option" id="urlOption">
+
                         <input type="radio" name="imageOption" value="url" id="imageSwitchURL">
                         <span>URL</span>
+
                     </label>
                     <label class="toggle-option" id="fileOption">
                         <input type="radio" name="imageOption" value="file" id="imageSwitchFile" checked>
@@ -72,13 +77,20 @@ use App\Models\Post;
                 const urlOption = document.getElementById('imageSwitchURL');
                 const fileUploadContainer = document.getElementById('fileUploadContainer');
                 const urlInputContainer = document.getElementById('urlInputContainer');
+                const fileInput = document.getElementById('fileInput'); // File input field
+                const urlInput = document.getElementById('urlInput');   // URL input field
 
-
+                if(IsURL == 1){
+                    urlOption.checked = true;
+                    fileUploadContainer.style.display = 'none';
+                    urlInputContainer.style.display = 'block';
+                }
                 // Event listener to toggle between URL input and file upload
                 fileOption.addEventListener('change', function() {
                     if (fileOption.checked) {
                         fileUploadContainer.style.display = 'block';
                         urlInputContainer.style.display = 'none';
+                        urlInput.value = '';
                     }
                 });
 
@@ -86,14 +98,10 @@ use App\Models\Post;
                     if (urlOption.checked) {
                         fileUploadContainer.style.display = 'none';
                         urlInputContainer.style.display = 'block';
+                        fileInput.value = '';
                     }
                 });
-                if(IsURL){
-                    if (urlOption.checked) {
-                        fileUploadContainer.style.display = 'none';
-                        urlInputContainer.style.display = 'block';
-                    }
-                }
+
 
             </script>
             <div class="text-center">
