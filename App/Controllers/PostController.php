@@ -75,21 +75,23 @@ class PostController extends AControllerBase
     {
         $id = (int)$this->request()->getValue('id');
         $oldFileName = "";
-        if ($id > 0) {
 
+        if ($id > 0) {
             $post = Post::getOne($id);
+
             if ($post->getIsURL() == 0) {
                 $oldFileName = $post->getObrazok();
             }
-
         } else {
             $post = new Post();
             $post->setAutor($this->app->getAuth()->getLoggedUserName());
         }
+
         $post->setRating($this->request()->getValue("rating"));
         $post->setNazov($this->request()->getValue("title"));
         $post->setText($this->request()->getValue("text"));
         $post->setTypPostu($this->request()->getValue("typ_postu"));
+
         $formErrors = $this->formErrors();
         if (count($formErrors) > 0) {
             return $this->html(
@@ -99,14 +101,12 @@ class PostController extends AControllerBase
                 ], 'add'
             );
         } else {
-
             if ($this->request()->getValue("imageUrl") == null) {
                 if ($oldFileName != "") {
                     FileStorage::deleteFile($oldFileName);
                 }
                 $fnuk = $this->request()->getFiles()['imageFile'];
                 $newFileName = FileStorage::saveFile($this->request()->getFiles()['imageFile']);
-//                $post->setObrazok($this->request()->getValue("fileInput"));
                 $post->setObrazok($newFileName);
                 $post->setIsURL(0);
             } else {
@@ -115,6 +115,8 @@ class PostController extends AControllerBase
             }
 
             $post->save();
+
+
             return $this->redirect("?c=Home");
         }
     }

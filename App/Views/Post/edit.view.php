@@ -9,9 +9,9 @@ use App\Models\Post;
 
 <main class="container mt-5 form">
     <section class="upload-review-section bg-dark text-light p-4 rounded shadow-sm">
-        <input type="hidden" name="id" value="<?= @$data['post']?->getId() ?>">
         <h2 class="text-center text-purple mb-4">Upload/Edit a Review</h2>
         <form action="<?= $link->url("post.upload") ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?= @$data['post']?->getId() ?>">
             <div class="mb-3">
                 <label for="reviewTitle" class="form-label text-purple">Review Title</label>
                 <input type="text" class="form-control bg-dark text-light" id="title" name="title"  value="<?= @$data['post']?->getNazov() ?>" placeholder="Enter the title of your review" required>
