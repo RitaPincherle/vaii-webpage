@@ -11,12 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/form.css">
     <link rel="stylesheet" href="public/css/styl.css">
 </head>
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid bg-black">
         <a class="navbar-brand" href="<?= $link->url("home.index") ?>">
             <img src="public/images/vaiicko_logo.png" title="<?= \App\Config\Configuration::APP_NAME ?>" />
         </a>

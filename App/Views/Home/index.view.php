@@ -2,8 +2,7 @@
 use App\Models\Post;
 /** @var \App\Core\LinkGenerator $link */
 /** @var Post[] $data */
-
-
+/** @var App\Core\IAuthenticator $auth */
 
 ?>
 <head>
@@ -41,7 +40,6 @@ use App\Models\Post;
         <!-- Movie Grid (Responsive Layout) -->
         <div class="col-12">
             <div class="row">
-                <!-- Movie Item 1 -->
 
                 <?php for ($i = 0; $i < sizeof($data); $i++) {?>
                     <div class="col-lg-3 col-md-4 col-6 mb-4">
@@ -51,7 +49,13 @@ use App\Models\Post;
                                 <h5 class="card-title"><?php echo $data[$i]->getNazov()?></h5>
                                 <p class="card-text"> <?php echo mb_substr($data[$i]->getText(), 0, 60) . (mb_strlen($data[$i]->getText()) > 60 ? '...' : '') ?></p>
                                 <p class="text-muted">Rating: <?php echo $data[$i]->getRating()?></p>
-                                <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>" class="btn btn-sm btn-primary">Upraviť</a>
+                                <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $data[$i]->getAutor())): ?>
+                                    <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>"
+                                       class="edit-icon"
+                                       style=" position:relative; top: 10px; right: 10px; font-size: 1.5rem">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
 

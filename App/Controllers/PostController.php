@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\HTTPException;
 use App\Core\Responses\Response;
+use App\Helpers\FileStorage;
 use App\Models\Post;
 
 class PostController extends AControllerBase
@@ -12,32 +14,126 @@ class PostController extends AControllerBase
     /**
      * @inheritDoc
      */
+
+    public function authorize($action): bool
+    {
+        switch ($action) {
+            case 'edit' :
+//            case 'delete' :
+//                // get id of post to check
+//                $id = (int)$this->request()->getValue("id");
+//                // get post from db
+//                $postToCheck = Post::getOne($id);
+//                // check if the logged login is the same as the post author
+//                // if yes, he can edit and delete post
+//                return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
+            case 'upload':
+                // get id of post to check
+                $id = (int)$this->request()->getValue("id");
+                if ($id > 0) {
+                    // only author can save the edited post
+                    $postToCheck = Post::getOne($id);
+                    return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
+                } else {
+                    // anyone can add a new post
+                    return $this->app->getAuth()->isLogged();
+                }
+            default:
+                return $this->app->getAuth()->isLogged();
+        }
+    }
+
     public function index(): Response
     {
         return $this->redirect($this->url("home.index"));
     }
 
-    public function add(): Response {
+    public function add(): Response
+    {
 
         return $this->html("post.add");
     }
-    public function edit(): Response {
 
-        return $this->html("post.edit");
+    public function edit(): Response
+    {
+
+        $id = (int)$this->request()->getValue('id');
+        $post = Post::getOne($id);
+
+        if (is_null($post)) {
+            throw new HTTPException(404);
+        }
+
+        return $this->html(
+            [
+                'post' => $post
+            ]
+        );
     }
-    public function upload(): Response {
-        $post = new Post();
-        $post->setAutor($_SESSION['user']);
+
+    public function upload(): Response
+    {
+        $id = (int)$this->request()->getValue('id');
+        $oldFileName = "";
+        if ($id > 0) {
+
+            $post = Post::getOne($id);
+            if ($post->getIsURL() == 0) {
+                $oldFileName = $post->getObrazok();
+            }
+
+        } else {
+            $post = new Post();
+            $post->setAutor($this->app->getAuth()->getLoggedUserName());
+        }
         $post->setRating($this->request()->getValue("rating"));
         $post->setNazov($this->request()->getValue("title"));
         $post->setText($this->request()->getValue("text"));
-        if($this->request()->getValue("imageUrl") === "") {
-            $post->setObrazok($this->request()->getValue("fileInput"));
-        } else {
-            $post->setObrazok($this->request()->getValue("imageUrl"));
-        }
         $post->setTypPostu($this->request()->getValue("typ_postu"));
-        $post->save();
-        return $this->redirect("?c=Home");
+        $formErrors = $this->formErrors();
+        if (count($formErrors) > 0) {
+            return $this->html(
+                [
+                    'post' => $post,
+                    'errors' => $formErrors
+                ], 'add'
+            );
+        } else {
+
+            if ($this->request()->getValue("imageUrl") == null) {
+                if ($oldFileName != "") {
+                    FileStorage::deleteFile($oldFileName);
+                }
+                $fnuk = $this->request()->getFiles()['imageFile'];
+                $newFileName = FileStorage::saveFile($this->request()->getFiles()['imageFile']);
+//                $post->setObrazok($this->request()->getValue("fileInput"));
+                $post->setObrazok($newFileName);
+                $post->setIsURL(0);
+            } else {
+                $post->setObrazok($this->request()->getValue("imageUrl"));
+                $post->setIsURL(1);
+            }
+
+            $post->save();
+            return $this->redirect("?c=Home");
+        }
+    }
+
+    private function formErrors(): array
+    {
+        $errors = [];
+        if ($this->request()->getFiles()['imageFile'] == "" || $this->request()->getValue("imageUrl")) {
+            $errors[] = "Pole Súbor/URL obrázka musí byť vyplnené!";
+        }
+        if ($this->request()->getValue('text') == "") {
+            $errors[] = "Pole Text príspevku musí byť vyplnené!";
+        }
+        if ($this->request()->getFiles()['imageFile']['name'] != "" && !in_array($this->request()->getFiles()['imageFile']['type'], ['image/jpeg', 'image/png'])) {
+            $errors[] = "Obrázok musí byť typu JPG alebo PNG!";
+        }
+        if ($this->request()->getValue('text') != "" && strlen($this->request()->getValue('text') < 5)) {
+            $errors[] = "Počet znakov v text príspevku musí byť viac ako 5!";
+        }
+        return $errors;
     }
 }

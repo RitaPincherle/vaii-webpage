@@ -13,6 +13,18 @@ class Post extends Model
     protected ?string $obrazok;
     protected ?int $typ_postu;
     protected ?int $rating;
+    private array $favourites;
+    protected ?int $isURL;
+
+    public function getIsURL(): ?int
+    {
+        return $this->isURL;
+    }
+
+    public function setIsURL(?int $isURL): void
+    {
+        $this->isURL = $isURL;
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +89,13 @@ class Post extends Model
     public function setRating(?int $rating): void
     {
         $this->rating = $rating;
+    }
+    public function setFavourites(): void
+    {
+       $this->favourites=Favourite::getAll("id_postu =?", [$this->id]);
+    }
+    public function getFavourites(): array{
+        return $this->favourites;
     }
 
 }

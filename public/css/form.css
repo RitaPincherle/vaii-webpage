@@ -1,5 +1,5 @@
 /* Style the rectangular toggle container */
-.custom-toggle {
+.form .custom-toggle {
     display: flex;
     width: 25%;
     border-radius: 8px;
@@ -8,7 +8,7 @@
 }
 
 /* Style each option inside the toggle */
-.toggle-option {
+.form .toggle-option {
     flex: 1;
     text-align: center;
     padding: 10px;
@@ -18,46 +18,46 @@
     transition: background-color 0.3s ease;
 }
 
-.toggle-option input[type="radio"] {
+.form .toggle-option input[type="radio"] {
     display: none;
 }
 
 /* Active state for selected option */
-.toggle-option input[type="radio"]:checked + span {
+.form .toggle-option input[type="radio"]:checked + span {
     font-weight: bold;
     color: #9b59b6;
     background-color: #333;
 }
 
 /* Change color on hover */
-.toggle-option:hover {
+.form .toggle-option:hover {
     background-color: #444;
 }
 
 /* Set initial active option */
-#fileOption input:checked + span {
+.form #fileOption input:checked + span {
     font-weight: bold;
     color: #9b59b6;
     background-color: #333;
 }
 
 /* File Upload and URL Input Styles */
-#fileUploadContainer, #urlInputContainer {
+.form #fileUploadContainer, #urlInputContainer {
     display: none;
 }
 
-#fileUploadContainer {
+.form #fileUploadContainer {
     display: block;
 }
 /* Custom Button Style for Submit Review */
-.custom-btn {
+.form .custom-btn {
     color: #9b59b6; /* Purple text */
     background-color: white; /* White background */
     border: 2px solid #9b59b6; /* Purple border */
     font-weight: bold; /* Optional: for bold text */
 }
 
-.custom-btn:hover {
+.form .custom-btn:hover {
     color: white; /* White text on hover */
     background-color: #9b59b6; /* Purple background on hover */
     border-color: #9b59b6; /* Purple border on hover */

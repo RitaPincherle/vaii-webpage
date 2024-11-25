@@ -1,7 +1,8 @@
 <?php
 /** @var Array $data
  * @var \App\Core\LinkGenerator $link
- */
+ * @var App\Core\IAuthenticator $auth */
+
 ?>
 
 <main class="container-fluid mt-4">
@@ -18,16 +19,30 @@
                     <?php
                     $i = 1;
                     foreach ($data['posts'] as $post):
-                        echo '<div class="col-md-4 col-6 mb-3">';
-                        echo '<img src="' . $post->getObrazok() .  '" alt="Book ' . $i . '" class="img-fluid rounded shadow-sm">';
-                        echo '</div>';
+                        ?>
+                        <div class="col-md-4 col-6 mb-3 image-container">
+
+                            <!-- Image -->
+                            <img src="<?= $post->getObrazok(); ?>" alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
+
+                            <!-- Pencil Icon -->
+                            <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor())): ?>
+                                <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>"
+                                   class="edit-icon"
+                                   style=" top: 5px; right: 20px; font-size: 1.5rem">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <?php
                         $i++;
-                    endforeach; ?>
+                    endforeach;
+                    ?>
                 </div>
             </div>
 
             <!-- Quote of the Week Section -->
-            <div class="col-lg-3 col-12 mt-4 mt-lg-0">
+            <div class="col-lg-3 col-12">
                 <div class="quote-of-the-week bg-dark p-3 rounded shadow-sm">
                     <h4 class="text-purple text-center">Quote of the Week</h4>
                     <p class="text-light text-center">

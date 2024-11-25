@@ -59,6 +59,7 @@ class HomeController extends AControllerBase
             FROM posts p JOIN favourites f 
                 ON f.id_postu = p.id 
                     WHERE p.typ_postu = 2 AND f.id_autor LIKE :autor");
+
         // AND f.id_autor like $autor
         $stmt->execute(['autor' => $autor]);
         $results = $stmt->fetch(PDO::FETCH_ASSOC);

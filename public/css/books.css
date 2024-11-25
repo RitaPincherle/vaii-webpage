@@ -73,5 +73,7 @@ img {
 }
 
 
-
+.edit-icon:hover {
+    color: rgba(129, 41, 255, 0.96); /* Lighter purple on hover */
+}
 
