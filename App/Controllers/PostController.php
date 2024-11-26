@@ -105,12 +105,12 @@ class PostController extends AControllerBase
                 ], 'add'
             );
         } else {
+            if ($oldFileName != "") {
+                FileStorage::deleteFile($oldFileName);
+            }
             if ($this->request()->getValue("imageUrl") == null) {
-                if ($oldFileName != "") {
-                    FileStorage::deleteFile($oldFileName);
-                }
 
-                $newFileName = FileStorage::saveFile($this->request()->getFiles()['imageFile']);
+                $newFileName = "public/uploads/" . FileStorage::saveFile($this->request()->getFiles()['imageFile']);
                 $post->setObrazok($newFileName);
                 $post->setIsURL(0);
             } else {

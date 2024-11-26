@@ -23,13 +23,9 @@
                         <div class="col-md-4 col-6 mb-3 image-container">
 
                             <!-- Image -->
-                            <?php if ($post->getIsURL() == 0) { ?>
-                                <img src="<?= \App\Helpers\FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>" alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
-                            <?php } else {?>
                                 <img src="<?= $post->getObrazok(); ?>" alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
-                            <?php }
 
-                            if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor())){ ?>
+                            <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor())){ ?>
                                 <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>"
                                    class="edit-icon"
                                    style=" top: 5px; right: 20px; font-size: 1.5rem">
