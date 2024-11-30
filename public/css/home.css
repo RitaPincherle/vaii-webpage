@@ -1,4 +1,4 @@
-/* List Group Styling */
+
 .list-group {
     background-color: #1c1c1c; /* Dark background for the list group */
     border-radius: 8px; /* Rounded corners */
@@ -27,6 +27,16 @@
     border-color: #9b59b6; /* Purple border for active item */
     color: #fff; /* White text for active item */
 }
+/*.edit-icon, .delete-icon {*/
+/*    font-size: 1.5rem;*/
+/*    position: relative;*/
+/*    cursor: pointer;*/
+/*    transition: color 0.2s ease; !* Smooth color transition on hover *!*/
+/*}*/
+/*.icon-group {*/
+/*    position: relative;*/
+/*    display: inline-block; !* Ensures icons align side by side *!*/
+/*}*/
 
 /* Mobile Adjustments */
 @media (max-width: 767px) {
@@ -38,4 +48,22 @@
     .list-group {
         margin-top: 15px; /* Reduce top margin for mobile */
     }
+
+    .carousel-item img {
+        height: 300px; /* Make carousel images smaller */
+        object-fit: cover;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
 }
+

@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/css/form.css">
     <link rel="stylesheet" href="public/css/styl.css">
+    <link rel="stylesheet" href="public/css/home.css">
 </head>
 <body>
 <!-- Navbar -->

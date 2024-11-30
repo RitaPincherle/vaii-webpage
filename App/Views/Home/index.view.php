@@ -5,9 +5,6 @@ use App\Models\Post;
 /** @var App\Core\IAuthenticator $auth */
 
 ?>
-<head>
-    <link rel="stylesheet" href="public/css/home.css">
-</head>
 <!-- Main Content -->
 <main class="container my-4">
     <div class="row">
@@ -37,36 +34,44 @@ use App\Models\Post;
             </div>
         </div>
 
-        <!-- Movie Grid (Responsive Layout) -->
         <div class="col-12">
             <div class="row">
-
                 <?php for ($i = 0; $i < sizeof($data); $i++) {?>
                     <div class="col-lg-3 col-md-4 col-6 mb-4">
                         <div class="card shadow-sm">
-                            <img src="<?php echo $data[$i]->getObrazok()?>" class="card-img-top" alt="">
+                            <?php if ($data[$i]->getIsURL() == 1) {?>
+                                <img src="<?php echo $data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                            <?php } else { ?>
+                                <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                                <?php }?>
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $data[$i]->getNazov()?></h5>
-                                <p class="card-text"> <?php echo mb_substr($data[$i]->getText(), 0, 60) . (mb_strlen($data[$i]->getText()) > 60 ? '...' : '') ?></p>
-                                <p class="text-muted">Rating: <?php echo $data[$i]->getRating()?></p>
+                                <h5 class="card-title"><?php echo $data[$i]->getNazov() ?></h5>
+                                <p class="card-text">
+                                    <?php echo mb_substr($data[$i]->getText(), 0, 60) . (mb_strlen($data[$i]->getText()) > 60 ? '...' : '') ?>
+                                </p>
+                                <p class="text-muted">Rating: <?php echo $data[$i]->getRating() ?></p>
+
                                 <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $data[$i]->getAutor())): ?>
-                                    <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>"
-                                       class="edit-icon"
-                                       style=" position:relative; top: 10px; right: 10px; font-size: 1.5rem">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
+                                    <div class="icon-group" style="position: relative; display: inline-block;">
+                                        <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>"
+                                           class="edit-icon"
+                                           style="position: relative; font-size: 1.5rem; margin-right: 10px;">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a href="<?= $link->url('post.delete', ['id' => $data[$i]->getId()]) ?>"
+                                           class="delete-icon"
+                                           style="position: relative; font-size: 1.5rem;">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
                                 <?php endif; ?>
                             </div>
                         </div>
-
                     </div>
-                <?php if ($i > 10){
-                    break;
-                    }
-                } ?>
+                    <?php if ($i > 10) { break; } } ?>
+            </div>
+        </div>
 
-
-        <!-- Sidebar (on larger screens) -->
         <div class="col-lg-3 col-12 mt-4 mt-lg-0">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action active">Trending Books</a>
@@ -78,25 +83,3 @@ use App\Models\Post;
     </div>
 </main>
 
-<!-- Custom Styles for Mobile -->
-<style>
-    /* For mobile screens, reduce the size of the carousel image */
-    @media (max-width: 767px) {
-        .carousel-item img {
-            height: 300px; /* Make carousel images smaller */
-            object-fit: cover;
-        }
-
-        .card-title {
-            font-size: 1rem;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-        }
-
-        .card-body {
-            padding: 1rem;
-        }
-    }
-</style>

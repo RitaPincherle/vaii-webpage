@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\HTTPException;
+use App\Core\Responses\RedirectResponse;
 use App\Core\Responses\Response;
 use App\Helpers\FileStorage;
 use App\Models\Post;
@@ -19,14 +20,14 @@ class PostController extends AControllerBase
     {
         switch ($action) {
             case 'edit' :
-//            case 'delete' :
-//                // get id of post to check
-//                $id = (int)$this->request()->getValue("id");
-//                // get post from db
-//                $postToCheck = Post::getOne($id);
-//                // check if the logged login is the same as the post author
-//                // if yes, he can edit and delete post
-//                return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
+            case 'delete' :
+               // get id of post to check
+                $id = (int)$this->request()->getValue("id");
+                // get post from db
+                $postToCheck = Post::getOne($id);
+                // check if the logged login is the same as the post author
+                // if yes, he can edit and delete post
+                return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
             case 'upload':
                 // get id of post to check
                 $id = (int)$this->request()->getValue("id");
@@ -45,13 +46,27 @@ class PostController extends AControllerBase
 
     public function index(): Response
     {
-        return $this->redirect($this->url("home.index"));
+        return $this->redirect("?c=Home");
     }
 
     public function add(): Response
     {
+        return $this->html();
+    }
+    public function delete(): Response
+    {
+        $id = (int)$this->request()->getValue('id');
+        $post = Post::getOne($id);
 
-        return $this->html("post.add");
+        if (is_null($post)) {
+            throw new HTTPException(404);
+        } else {
+            if($post->getIsURL() == 0){
+                FileStorage::deleteFile($post->getObrazok());
+            }
+            $post->delete();
+            return new RedirectResponse($this->url("home.index"));
+        }
     }
 
     public function edit(): Response
@@ -65,10 +80,7 @@ class PostController extends AControllerBase
         }
 
         return $this->html(
-            [
-                'post' => $post
-            ]
-        );
+            ["post" => $post]);
     }
 
     /**
@@ -90,27 +102,27 @@ class PostController extends AControllerBase
             $post = new Post();
             $post->setAutor($this->app->getAuth()->getLoggedUserName());
         }
-
-        $post->setRating($this->request()->getValue("rating"));
-        $post->setNazov($this->request()->getValue("title"));
-        $post->setText($this->request()->getValue("text"));
-        $post->setTypPostu($this->request()->getValue("typ_postu"));
-
         $formErrors = $this->formErrors();
         if (count($formErrors) > 0) {
             return $this->html(
                 [
-                    'post' => $post,
-                    'errors' => $formErrors
+                    "post" => $post,
+                    "errors" => $formErrors
                 ], 'add'
             );
         } else {
+            $post->setRating($this->request()->getValue("rating"));
+            $post->setNazov($this->request()->getValue("title"));
+            $post->setText($this->request()->getValue("text"));
+            $post->setTypPostu($this->request()->getValue("typ_postu"));
+
+
             if ($oldFileName != "") {
                 FileStorage::deleteFile($oldFileName);
             }
             if ($this->request()->getValue("imageUrl") == null) {
 
-                $newFileName = "public/uploads/" . FileStorage::saveFile($this->request()->getFiles()['imageFile']);
+                $newFileName = FileStorage::saveFile($this->request()->getFiles()['imageFile']);
                 $post->setObrazok($newFileName);
                 $post->setIsURL(0);
             } else {
@@ -128,11 +140,14 @@ class PostController extends AControllerBase
     private function formErrors(): array
     {
         $errors = [];
-        if ($this->request()->getFiles()['imageFile'] == "" && $this->request()->getValue("imageUrl") == "") {
+        if ($this->request()->getFiles()['imageFile']['name'] == "" && $this->request()->getValue("imageUrl") == "") {
             $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
         }
         if ($this->request()->getValue('text') == "") {
             $errors[] = "Pole Text príspevku musí byť vyplnené!";
+        }
+        if ($this->request()->getValue('rating') == "" || ($this->request()->getValue('rating') < 1 || $this->request()->getValue('rating') > 5)) {
+            $errors[] = "Pole rating príspevku musí byť vyplnené správnou hodnotou!";
         }
         if ($this->request()->getFiles()['imageFile']['name'] != "" && !in_array($this->request()->getFiles()['imageFile']['type'], ['image/jpeg', 'image/png'])) {
             $errors[] = "Obrázok musí byť typu JPG alebo PNG!";
@@ -140,6 +155,10 @@ class PostController extends AControllerBase
         if ($this->request()->getValue('text') != "" && strlen($this->request()->getValue('text') < 5)) {
             $errors[] = "Počet znakov v text príspevku musí byť viac ako 5!";
         }
+        if ($this->request()->getValue('title') == "") {
+            $errors[] = "Pole Review Title príspevku musí byť vyplnené!";
+        }
+
         return $errors;
     }
 }
