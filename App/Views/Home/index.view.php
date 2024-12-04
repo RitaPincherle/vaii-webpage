@@ -12,13 +12,21 @@ use App\Models\Post;
             <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
+                        <?php if ($data[0]->getIsURL() == 1) {?>
                         <img src="<?php echo $data[0]->getObrazok()?>" class="d-block w-100 h-60" alt="">
+                        <?php } else { ?>
+                            <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[0]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
+                        <?php }?>
                     </div>
 
                     <?php
                         for ($i = 1; $i < sizeof($data); $i++) {?>
                             <div class="carousel-item ">
-                                <img src="<?php echo $data[$i]->getObrazok()?>" class="d-block w-100 h-60" alt="">
+                                <?php if ($data[$i]->getIsURL() == 1) {?>
+                                    <img src="<?php echo $data[$i]->getObrazok()?>" class="d-block w-100 h-60" alt="">
+                                <?php } else { ?>
+                                    <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
+                                <?php }?>
                             </div>
                         <?php }?>
 
