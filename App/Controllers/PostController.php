@@ -102,7 +102,24 @@ class PostController extends AControllerBase
             $post = new Post();
             $post->setAutor($this->app->getAuth()->getLoggedUserName());
         }
+
+        $post->setNazov($this->request()->getValue("title"));
+        $post->setText($this->request()->getValue("text"));
+        $post->setTypPostu($this->request()->getValue("typ_postu"));
+
+        if (!is_numeric($this->request()->getValue("rating"))) {
+            $post->setRating(1);
+        }
+        if ($this->request()->getValue("imageUrl") == null) {
+
+            $post->setObrazok($this->request()->getFiles()['imageFile']['name']);
+            $post->setIsURL(0);
+        } else {
+            $post->setObrazok($this->request()->getValue("imageUrl"));
+            $post->setIsURL(1);
+        }
         $formErrors = $this->formErrors();
+
         if (count($formErrors) > 0) {
             return $this->html(
                 [
@@ -112,11 +129,6 @@ class PostController extends AControllerBase
             );
         } else {
             $post->setRating($this->request()->getValue("rating"));
-            $post->setNazov($this->request()->getValue("title"));
-            $post->setText($this->request()->getValue("text"));
-            $post->setTypPostu($this->request()->getValue("typ_postu"));
-
-
             if ($oldFileName != "") {
                 FileStorage::deleteFile($oldFileName);
             }
@@ -142,12 +154,11 @@ class PostController extends AControllerBase
         $errors = [];
         if ($this->request()->getFiles()['imageFile']['name'] == "" && $this->request()->getValue("imageUrl") == "") {
             $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
-            $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
         }
         if ($this->request()->getValue('text') == "") {
             $errors[] = "Pole Text príspevku musí byť vyplnené!";
         }
-        if ($this->request()->getValue('rating') == "" || ($this->request()->getValue('rating') < 1 || $this->request()->getValue('rating') > 5)) {
+        if ($this->request()->getValue('rating') == "" || ($this->request()->getValue('rating') < 1 || $this->request()->getValue('rating') > 5 || !is_numeric($this->request()->getValue("rating")))) {
             $errors[] = "Pole rating príspevku musí byť vyplnené správnou hodnotou!";
         }
         if ($this->request()->getFiles()['imageFile']['name'] != "" && !in_array($this->request()->getFiles()['imageFile']['type'], ['image/jpeg', 'image/png'])) {
