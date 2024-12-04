@@ -122,7 +122,12 @@ a:hover {
         padding-right: 10px;
     }
 }
-
+.custom-btn {
+    color: #9b59b6; /* Purple text */
+    background-color: white; /* White background */
+    border: 2px solid #9b59b6; /* Purple border */
+    font-weight: bold; /* Optional: for bold text */
+}
 /* Utility Classes */
 .text-purple {
     color: #9b59b6;
