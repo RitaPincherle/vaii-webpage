@@ -33,7 +33,7 @@ class HomeController extends AControllerBase
     public function index(): Response
     {
         $posts = Post::getAll();
-        $data = array_slice($posts, 0, 3);
+        //$data = array_slice($posts, 0, 3);
         return $this->html($posts);
     }
 

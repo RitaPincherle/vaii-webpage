@@ -142,6 +142,7 @@ class PostController extends AControllerBase
         $errors = [];
         if ($this->request()->getFiles()['imageFile']['name'] == "" && $this->request()->getValue("imageUrl") == "") {
             $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
+            $errors[] = "Pole Súbor alebo URL obrázka musí byť vyplnené!";
         }
         if ($this->request()->getValue('text') == "") {
             $errors[] = "Pole Text príspevku musí byť vyplnené!";
