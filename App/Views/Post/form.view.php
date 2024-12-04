@@ -70,41 +70,12 @@ if (!is_null(@$data['errors'])): ?>
                 </div>
             </div>
 
-
             <script>
-                // Get the radio buttons and corresponding containers
-                const IsURL = "<?= @$data['post']?->getIsURL()?>";
-
-                const fileOption = document.getElementById('imageSwitchFile');
-                const urlOption = document.getElementById('imageSwitchURL');
-                const fileUploadContainer = document.getElementById('fileUploadContainer');
-                const urlInputContainer = document.getElementById('urlInputContainer');
-                const fileInput = document.getElementById('fileInput'); // File input field
-                const urlInput = document.getElementById('urlInput');   // URL input field
-
-                if(IsURL == 1){
-                    urlOption.checked = true;
-                    fileUploadContainer.style.display = 'none';
-                    urlInputContainer.style.display = 'block';
-                    urlInput.value = "<?= @$data['post']?->getObrazok()?>"
-                }
-                // Event listener to toggle between URL input and file upload
-                fileOption.addEventListener('change', function() {
-                    if (fileOption.checked) {
-                        fileUploadContainer.style.display = 'block';
-                        urlInputContainer.style.display = 'none';
-                        urlInput.value = '';
-                    }
-                });
-
-                urlOption.addEventListener('change', function() {
-                    if (urlOption.checked) {
-                        fileUploadContainer.style.display = 'none';
-                        urlInputContainer.style.display = 'block';
-                        fileInput.value = '';
-                    }
-                });
-
+                window.onload = function () {
+                    const isURL = "<?= @$data['post']?->getIsURL()?>";
+                    const obrazok = "<?= @$data['post']?->getObrazok()?>";
+                    initializeImageSwitch(isURL, obrazok);
+                };
             </script>
             <div class="text-center">
                 <button type="submit" class="btn custom-btn" >Submit Review</button>
