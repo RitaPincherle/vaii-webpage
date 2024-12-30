@@ -6,6 +6,7 @@ use App\Config\Configuration;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Core\Responses\ViewResponse;
+use App\Models\User;
 
 /**
  * Class AuthController
@@ -34,12 +35,47 @@ class AuthController extends AControllerBase
         if (isset($formData['submit'])) {
             $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
             if ($logged) {
-                return $this->redirect($this->url("admin.index"));
+                if ($this->app->getAuth()->isAdmin()){
+                    return $this->redirect($this->url("admin.index"));
+                }
+                return $this->redirect($this->url("home.index"));
             }
         }
 
         $data = ($logged === false ? ['message' => 'Zlý login alebo heslo!'] : []);
+
         return $this->html($data);
+
+    }
+
+    public function register(): Response
+    {
+        $formData = $this->app->getRequest()->getPost();
+
+
+        if (isset($formData['submit'])) {
+            $username = $this->request()->getValue("login");
+            $users = User::getAll();
+            foreach ($users as $user) {
+                if ($user->getMeno() == $username) {
+                    $data["message"] = "meno je už obsadene!";
+                    return $this->html($data, "login");
+                }
+            }
+            $heslo = $formData["password"];
+            $rheslo = $formData["repassword"];
+            if($heslo == $rheslo){
+                $user = new User();
+                $user->setMeno($username);
+                $user->setHeslo(password_hash("$heslo", PASSWORD_DEFAULT));
+                $user->setAdmin(0);
+                $user->save();
+            }else{
+                $data["message"] = "passwords must match!";
+                return $this->html($data, "login");
+            }
+        }
+        return $this->redirect($this->url("auth.login"));
     }
 
     /**
@@ -49,6 +85,6 @@ class AuthController extends AControllerBase
     public function logout(): Response
     {
         $this->app->getAuth()->logout();
-        return $this->html();
+        return $this->redirect($this->url("home.index"));
     }
 }
