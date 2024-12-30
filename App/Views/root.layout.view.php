@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="public/css/form.css">
     <link rel="stylesheet" href="public/css/styl.css">
     <link rel="stylesheet" href="public/css/home.css">
+    <link rel="stylesheet" href="public/css/auth.css">
 </head>
 <body>
 <!-- Navbar -->
@@ -45,19 +46,27 @@
             <?php if ($auth->isLogged()) { ?>
                 <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
                     <li class="nav-item">
-                        <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
+                        <span class="navbar-text">Logged user: <b><?= $auth->getLoggedUserName() ?></b></span>
+                    </li>
+
+                    <?php if ($auth->isAdmin()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $link->url("admin.index") ?>">Admin page</a>
+                        </li>
+                    <?php }?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $link->url("post.add") ?>">Add review</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $link->url("post.add") ?>">Pridať review</a>
+                        <a class="nav-link" href="<?= $link->url("auth.logout") ?>">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $link->url("auth.logout") ?>">Odhlásenie</a>
-                    </li>
+
                 </ul>
             <?php } else { ?>
                 <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Prihlásenie</a>
+                        <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a>
                     </li>
                 </ul>
             <?php } ?>

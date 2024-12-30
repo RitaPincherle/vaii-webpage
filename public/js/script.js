@@ -83,7 +83,7 @@ function updateTable(users) {
     table.innerHTML = ''; // Clear the existing table
 
     // Rebuild the table with the updated user data
-    var tableHTML = '<tr><th>Username</th><th>Is Admin</th><th>delete user</th></tr>';
+    var tableHTML = '<tr><th>Username</th><th>Is Admin</th><th>Delete User</th></tr>';
     users.forEach(user => {
         tableHTML += '<tr>';
         tableHTML += '<td>' + user.meno + '</td>';
