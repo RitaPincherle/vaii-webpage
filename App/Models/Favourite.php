@@ -7,16 +7,16 @@ use App\Core\Model;
 class Favourite extends Model
 {
     protected ?int $id = null;
-    protected ?string $autor = null;
+    protected ?string $id_autor = null;
     protected ?int $id_postu = null;
-    public function getAutor(): ?string
+    public function getIdAutor(): ?string
     {
-        return $this->autor;
+        return $this->id_autor;
     }
 
-    public function setAutor(?string $autor): void
+    public function setIdAutor(?string $autor): void
     {
-        $this->autor = $autor;
+        $this->id_autor = $autor;
     }
 
     public function getId(): ?int
@@ -37,6 +37,10 @@ class Favourite extends Model
     public function setIdPostu(?int $id_postu): void
     {
         $this->id_postu = $id_postu;
+    }
+    public function getFavourites(?string $autor): array
+    {
+        return Favourite::getAll("id_autor =?", [$autor]);
     }
 
 }

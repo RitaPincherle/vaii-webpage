@@ -40,9 +40,12 @@ if (!is_null(@$data['errors'])): ?>
             </div>
 
             <div class="mb-3">
-
                 <label for="imageOption" class="form-label text-purple">Upload Image</label>
-                <div>Pôvodný súbor: <?= @$data['post']?->getObrazok() ?></div>
+                </div>
+                <div class="original-file mb-3">
+                    <p>Original file:</p>
+                    <span class="file-name"><?= @$data['post']?->getObrazok() ?: 'No file selected'; ?></span>
+                </div>
 
                 <!-- Rectangular Toggle Switch -->
                 <div class="custom-toggle">
@@ -68,7 +71,7 @@ if (!is_null(@$data['errors'])): ?>
                 <div class="mb-3" id="urlInputContainer" >
                     <input type="url" class="form-control bg-dark text-light" id="urlInput" name="imageUrl" placeholder="Enter Image URL">
                 </div>
-            </div>
+
 
 
             <script>

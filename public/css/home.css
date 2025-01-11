@@ -1,3 +1,21 @@
+.navbar .navbar-nav .nav-link {
+    color: #9b59b6; /* Purple color for links */
+    font-weight: 500;
+    padding: 10px 15px; /* Padding for larger click area */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effects */
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus {
+    color: #bb86fc; /* Lighter purple on hover */
+    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
+    border-radius: 5px; /* Rounded corners for the link */
+}
+
+/* Navbar items on mobile */
+.navbar-collapse {
+    font-size: 14px; /* Smaller font size for mobile */
+}
 
 .list-group {
     background-color: #1c1c1c; /* Dark background for the list group */

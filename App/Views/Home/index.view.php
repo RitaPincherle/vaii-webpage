@@ -1,6 +1,9 @@
 <?php
+
+use App\Core\LinkGenerator;
+use App\Helpers\FileStorage;
 use App\Models\Post;
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 /** @var Post[] $data */
 /** @var App\Core\IAuthenticator $auth */
 
@@ -15,7 +18,7 @@ use App\Models\Post;
                         <?php if ($data[0]->getIsURL() == 1) {?>
                         <img src="<?php echo $data[0]->getObrazok()?>" class="d-block w-100 h-60" alt="">
                         <?php } else { ?>
-                            <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[0]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
+                            <img src="<?php  echo FileStorage::UPLOAD_DIR . '/' .$data[0]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
                         <?php }?>
                     </div>
 
@@ -25,7 +28,7 @@ use App\Models\Post;
                                 <?php if ($data[$i]->getIsURL() == 1) {?>
                                     <img src="<?php echo $data[$i]->getObrazok()?>" class="d-block w-100 h-60" alt="">
                                 <?php } else { ?>
-                                    <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
+                                    <img src="<?php  echo FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="d-block w-100 h-60" alt="">
                                 <?php }?>
                             </div>
                         <?php }?>
@@ -50,25 +53,25 @@ use App\Models\Post;
                             <?php if ($data[$i]->getIsURL() == 1) {?>
                                 <img src="<?php echo $data[$i]->getObrazok() ?>" class="card-img-top" alt="">
                             <?php } else { ?>
-                                <img src="<?php  echo \App\Helpers\FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                                <img src="<?php  echo FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="card-img-top" alt="">
                                 <?php }?>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $data[$i]->getNazov() ?></h5>
                                 <p class="card-text">
                                     <?php echo mb_substr($data[$i]->getText(), 0, 60) . (mb_strlen($data[$i]->getText()) > 60 ? '...' : '') ?>
                                 </p>
-                                <p class="text-muted">Rating: <?php echo $data[$i]->getRating() ?></p>
+                                <p class="text">Rating: <?php echo $data[$i]->getRating() ?></p>
 
-                                <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $data[$i]->getAutor())): ?>
-                                    <div class="icon-group" style="position: relative; display: inline-block;">
+                                <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $data[$i]->getAutor()) || $auth->isAdmin()): ?>
+                                    <div class="icon-group" style="display: inline-flex; align-items: center;">
                                         <a href="<?= $link->url('post.edit', ['id' => $data[$i]->getId()]) ?>"
                                            class="edit-icon"
-                                           style="position: relative; font-size: 1.5rem; margin-right: 10px;">
+                                           style="font-size: 1.5rem; margin-right: 10px;">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a href="<?= $link->url('post.delete', ['id' => $data[$i]->getId()]) ?>"
                                            class="delete-icon"
-                                           style="position: relative; font-size: 1.5rem;">
+                                           style="font-size: 1.5rem;">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>

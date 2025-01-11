@@ -49,31 +49,26 @@ class HomeController extends AControllerBase
     {
         $posts = Post::getAll();
         $data = array();
-        $autor = $_SESSION['user'];
+        if($this->app->getAuth()->isLogged()){
+            $autor = $_SESSION['user'];
+            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
+            foreach ($favourites as $favourite) {
+                $favouritePosts[] = Post::getOne($favourite->getIdPostu());
+            }
+        }
 
-//        $favourites = Favourite::getAll("autor = $autor");
-        $con = Connection::connect();
-        $stmt = $con->prepare("SELECT p.obrazok AS obrazok, p.nazov AS NAZOV, 
-        p.id AS ID, p.typ_postu AS typ, p.autor AS autor, 
-        p.rating AS rating, p.text AS text 
-            FROM posts p JOIN favourites f 
-                ON f.id_postu = p.id 
-                    WHERE p.typ_postu = 2 AND f.id_autor LIKE :autor");
-
-        // AND f.id_autor like $autor
-        $stmt->execute(['autor' => $autor]);
-        $results = $stmt->fetch(PDO::FETCH_ASSOC);
         foreach ($posts as $post) {
             if ($post->getTypPostu() == 2) {
                 $data[] = $post;
             }
         }
 
+        $favouritePosts = array();
+
         return $this->html(
             [
                 'posts' => $data,
-//                'favourites' => $favourites,
-                'favourites'=>$results
+                'favourites' => $favouritePosts
             ]);
     }
     public function series(): Response

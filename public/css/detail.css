@@ -1,0 +1,159 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Main Content */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff; /* White text */
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Text Styles */
+h1, h2, h3, h4, h5, h6, p, a, span {
+    color: #fff; /* Set text color to white */
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 1px solid #333; /* Subtle border at the bottom */
+}
+
+.navbar .navbar-brand img {
+    width: 120px; /* Slightly smaller logo */
+    transition: width 0.3s ease; /* Smooth logo size transition */
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus {
+    color: #bb86fc; /* Lighter purple on hover */
+    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
+    border-radius: 5px; /* Rounded corners for the link */
+}
+
+/* Navbar items on mobile */
+.navbar-collapse {
+    font-size: 14px; /* Smaller font size for mobile */
+}
+
+
+
+/* Footer */
+footer {
+    background-color: #1c1c1c; /* Dark footer */
+    color: #fff; /* White text for footer */
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+    border-top: 1px solid #333; /* Subtle footer border */
+}
+
+footer a {
+    color: #fff; /* White color for footer links */
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #bb86fc; /* Lighter purple on hover */
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+/* Minimalist Cards or Content Blocks */
+.card {
+    background-color: #1c1c1c; /* Dark card background */
+    border: 1px solid #333; /* Subtle border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
+
+.card-header {
+    background-color: #343a40; /* Slightly lighter header */
+    color: #fff; /* White text */
+    padding: 20px;
+    text-align: center;
+}
+
+.card-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #fff; /* White for the title */
+}
+
+.card-body {
+    padding: 20px;
+    color: #fff; /* White text */
+}
+
+.card-body p, .card-body h5 {
+    color: #fff; /* Ensure card content text is white */
+}
+
+.post-image {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    background-color: #1c1c1c; /* Same as the card body for uniformity */
+    padding: 20px;
+    border-top: 1px solid #333; /* Subtle border */
+    text-align: center;
+}
+
+.post-rating {
+    font-size: 1.2rem;
+    color: #fff; /* White for the rating */
+    margin-bottom: 10px;
+}
+
+.post-actions a {
+    color: #fff; /* White icons */
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.post-actions a:hover {
+    color: #bb86fc; /* Light purple on hover */
+}
+
+/* Buttons */
+.btn-secondary {
+    background-color: transparent;
+    color: #fff; /* White text for buttons */
+    border: 1px solid #9b59b6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #9b59b6; /* Purple background on hover */
+    color: #fff; /* White text */
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .card-header h1 {
+        font-size: 1.5rem; /* Smaller title on mobile */
+    }
+
+    .post-text {
+        font-size: 1rem; /* Adjust text size for mobile */
+    }
+
+    .post-actions a {
+        font-size: 1.2rem; /* Smaller icons on mobile */
+    }
+}

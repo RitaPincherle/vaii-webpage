@@ -1,7 +1,10 @@
 <?php
 /** @var Array $data
- * @var \App\Core\LinkGenerator $link
+ * @var LinkGenerator $link
  * @var App\Core\IAuthenticator $auth */
+
+use App\Core\LinkGenerator;
+use App\Helpers\FileStorage;
 
 ?>
 
@@ -21,30 +24,35 @@
                     foreach ($data['posts'] as $post):
                         ?>
                         <div class="col-md-4 col-6 mb-3 image-container">
-
-
-                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : \App\Helpers\FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
-                                 alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
-
-                            <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor())){ ?>
-                                <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>"
-                                   class="edit-icon"
-                                   style=" top: 5px; right: 20px; font-size: 1.5rem; margin-right: 10px">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>"
-                                   class="delete-icon"
-                                   style="top: 5px; right: 20px; font-size: 1.5rem">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-
-                            <?php } ?>
+                            <!-- Link wrapping the image -->
+                            <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="d-block">
+                                <img src="<?= $post->getIsURL() ? $post->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
+                                     alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
+                            </a>
+                            <!-- Styled Title -->
+                            <div class="d-flex align-items-center">
+                                <p class="text-left text-light mb-0" style="font-size: 1rem; font-weight: bold;">
+                                    <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="text-light text-decoration-none">
+                                        <?= $post->getNazov(); ?>
+                                    </a>
+                                </p>
+                                <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor()) || $auth->isAdmin()){ ?>
+                                    <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>"
+                                       class="edit-icon ml-2"
+                                       style="font-size: 1.2rem; margin-left: 10px;">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>"
+                                       class="delete-icon ml-2"
+                                       style="font-size: 1.2rem; margin-left: 10px;">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                <?php } ?>
+                            </div>
                         </div>
-                        <?php
-                        $i++;
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </div>
+
             </div>
 
             <!-- Quote of the Week Section -->
@@ -60,19 +68,28 @@
 
         <!-- My Favourites Section -->
         <section class="my-favourites mt-4">
-            <h3 class="text-center text-purple">My Favourites</h3>
+            <h3 class="text-center text-purple">My Favourite Books</h3>
             <p class="text-center text-light">
                 Here are some of my all-time favourite books that have left a lasting impact.
             </p>
             <!-- Display Favourites -->
             <div class="row mt-4">
                 <?php
-                // Displaying a set of 4 "favourite" books
-                for ($i = 1; $i <= 4; $i++) {
-                    echo '<div class="col-md-3 col-6 mb-4">';
-                    echo '<img src="https://picsum.photos/300/200?random=' . ($i + 10) . '" alt="Favourite Book ' . $i . '" class="img-fluid rounded shadow-sm">';
-                    echo '</div>';
-                }
+                $i = 1;
+                if(sizeof($data['favourites']) == 0):
+                {
+                    echo '<p class="text-center text-light"> You have no favourite books!</p>';
+                } else: {
+                    foreach ($data['favourites'] as $favourite):
+                    {
+                        echo '<div class="col-md-3 col-6 mb-4">';
+                        echo '<img src="' . ($favourite->getIsURL() ? $favourite->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $favourite->getObrazok()) . '" alt="Favourite Book ' . $i . '" class="img-fluid rounded shadow-sm">';
+                        echo '</div>';
+                    }
+                    $i++;
+                    endforeach;
+                }endif;
+
                 ?>
             </div>
         </section>

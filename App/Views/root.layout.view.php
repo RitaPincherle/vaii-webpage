@@ -1,8 +1,13 @@
 <?php
 
 /** @var string $contentHTML */
-/** @var \App\Core\IAuthenticator $auth */
-/** @var \App\Core\LinkGenerator $link */
+/** @var IAuthenticator $auth */
+/** @var LinkGenerator $link */
+
+use App\Config\Configuration;
+use App\Core\IAuthenticator;
+use App\Core\LinkGenerator;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,16 +18,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/css/form.css">
-    <link rel="stylesheet" href="public/css/styl.css">
+<!--    <link rel="stylesheet" href="public/css/styl.css">-->
     <link rel="stylesheet" href="public/css/home.css">
     <link rel="stylesheet" href="public/css/auth.css">
+    <link rel="stylesheet" href="public/css/detail.css">
 </head>
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid bg-black">
         <a class="navbar-brand" href="<?= $link->url("home.index") ?>">
-            <img src="public/images/vaiicko_logo.png" title="<?= \App\Config\Configuration::APP_NAME ?>" />
+            <img src="public/images/vaiicko_logo.png" alt="logo" title="<?= Configuration::APP_NAME ?>" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -66,7 +72,7 @@
             <?php } else { ?>
                 <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a>
+                        <a class="nav-link" href="<?= Configuration::LOGIN_URL ?>">Login</a>
                     </li>
                 </ul>
             <?php } ?>

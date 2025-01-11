@@ -8,12 +8,14 @@ use App\Core\Responses\RedirectResponse;
 use App\Core\Responses\Response;
 use App\Helpers\FileStorage;
 use App\Models\Post;
+use Exception;
 
 class PostController extends AControllerBase
 {
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
 
     public function authorize($action): bool
@@ -27,14 +29,14 @@ class PostController extends AControllerBase
                 $postToCheck = Post::getOne($id);
                 // check if the logged login is the same as the post author
                 // if yes, he can edit and delete post
-                return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
+                return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName() || $this->app->getAuth()->isAdmin();
             case 'upload':
                 // get id of post to check
                 $id = (int)$this->request()->getValue("id");
                 if ($id > 0) {
                     // only author can save the edited post
                     $postToCheck = Post::getOne($id);
-                    return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName();
+                    return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName() || $this->app->getAuth()->isAdmin();
                 } else {
                     // anyone can add a new post
                     return $this->app->getAuth()->isLogged();
@@ -53,6 +55,11 @@ class PostController extends AControllerBase
     {
         return $this->html();
     }
+
+    /**
+     * @throws HTTPException
+     * @throws Exception
+     */
     public function delete(): Response
     {
         $id = (int)$this->request()->getValue('id');
@@ -61,21 +68,48 @@ class PostController extends AControllerBase
         if (is_null($post)) {
             throw new HTTPException(404);
         } else {
+            $post->setFavourites();
+            $favourites = $post->getFavourites();
             if($post->getIsURL() == 0){
                 FileStorage::deleteFile($post->getObrazok());
+            }
+            foreach ($favourites as $favourite) {
+                $favourite->delete();
             }
             $post->delete();
             return new RedirectResponse($this->url("home.index"));
         }
     }
 
+    /**
+     * @throws HTTPException
+     */
+    public function detail(): Response
+    {
+        $id = (int)$this->request()->getValue('id');
+        try {
+            $post = Post::getOne($id);
+        } catch (Exception $e) {
+            throw new HTTPException(404);
+        }
+
+        return $this->html(["post" => $post]);
+    }
+
+    /**
+     * @throws HTTPException
+     * @throws Exception
+     */
     public function edit(): Response
     {
 
         $id = (int)$this->request()->getValue('id');
-        $post = Post::getOne($id);
-
-        if (is_null($post)) {
+        if ($id > 0) {
+            $post = Post::getOne($id);
+            if (is_null($post)) {
+                throw new HTTPException(404);
+            }
+        }else{
             throw new HTTPException(404);
         }
 
@@ -85,7 +119,7 @@ class PostController extends AControllerBase
 
     /**
      * @throws HTTPException
-     * @throws \Exception
+     * @throws Exception
      */
     public function upload(): Response
     {
