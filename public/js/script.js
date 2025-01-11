@@ -97,7 +97,6 @@ function updateTable(users) {
 document.addEventListener("DOMContentLoaded", () => {
     const stars = document.querySelectorAll(".star-icon");
     const favouritesContainer = document.querySelector(".favourites-container");
-    const noFavouritesMessage = document.querySelector(".no-favourites");
 
     stars.forEach(star => {
         star.addEventListener("click", () => {
@@ -129,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to add a favourite to the favourites section
     function addFavouriteToUI(postId, star) {
+        const noFavouritesMessage = document.querySelector(".no-favourites");
         // Check if the card already exists in the favourites section
         const existingFavourite = favouritesContainer.querySelector(`[data-id="${postId}"]`);
         if (existingFavourite) return; // Do nothing if it already exists
@@ -170,7 +170,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Remove "no favourites" message if present
         if (noFavouritesMessage) {
-            noFavouritesMessage.remove();
+
+            try {
+                noFavouritesMessage.remove();
+                console.log("Message removed successfully.");
+            } catch (error) {
+                console.error("Failed to remove noFavouritesMessage:", error);
+            }
+        } else {
+            console.log("noFavouritesMessage not found.");
         }
 
         // Append the cloned card to the favourites section
@@ -191,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Show "no favourites" message if the favourites section is now empty
         if (favouritesContainer.children.length === 0) {
-            const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourite books!</p>';
+            const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourites!</p></div>';
             favouritesContainer.innerHTML = noFavouritesHTML;
         }
 

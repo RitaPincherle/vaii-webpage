@@ -84,7 +84,7 @@ use App\Helpers\FileStorage;
                 <div class="row mt-4 favourites-container">
                     <?php
                     if (sizeof($data['favourites']) == 0):
-                        echo '<p class="text-center text-light no-favourites"> You have no favourite books!</p>';
+                        echo '<p class="text-center text-light no-favourites"> You have no favourites!</p>';
                     else:
                         foreach ($data['favourites'] as $favourite): ?>
                             <div class="col-md-3 col-6 mb-4 favourite-item" data-id="<?= $favourite->getId(); ?>">

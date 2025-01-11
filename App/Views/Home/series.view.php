@@ -15,54 +15,16 @@ use App\Helpers\FileStorage;
                 Welcome to the Series reviews section. Here, we share insightful reviews of our favorite series. Explore a variety of genres and find your next great watch!
             </p>
 
-            <div class="row mt-4">
-                <div class="col-lg-9 col-12">
-                    <div class="row">
-                        <?php
-                        $i = 1;
-                        foreach ($data['posts'] as $post):
-                            ?>
-                            <div class="col-md-4 col-6 mb-3 image-container">
-                                <!-- Link wrapping the image -->
-                                <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="d-block">
-                                    <img src="<?= $post->getIsURL() ? $post->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
-                                         alt="Book <?= $i; ?>" class="img-fluid rounded shadow-sm">
-                                </a>
-                                <!-- Styled Title -->
-                                <div class="d-flex align-items-center">
-                                    <p class="text-left text-light mb-0" style="font-size: 1rem; font-weight: bold;">
-                                        <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="text-light text-decoration-none">
-                                            <?= $post->getNazov(); ?>
-                                        </a>
-                                    </p>
-                                    <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $post->getAutor()) || $auth->isAdmin()){ ?>
-                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>"
-                                           class="edit-icon ml-2"
-                                           style="font-size: 1.2rem; margin-left: 10px;">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>"
-                                           class="delete-icon ml-2"
-                                           style="font-size: 1.2rem; margin-left: 10px;">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-
+            <?php require 'reviews.view.php' ?>
+            <!-- Quote of the Week Section -->
+            <div class="col-lg-3 col-12">
+                <div class="quote-of-the-week bg-dark p-3 rounded shadow-sm">
+                    <h4 class="text-purple text-center">Quote of the Week</h4>
+                    <p class="text-light text-center">
+                        "A book is a dream that you hold in your hand." - Neil Gaiman
+                    </p>
                 </div>
-
-                <!-- Quote of the Week Section -->
-                <div class="col-lg-3 col-12">
-                    <div class="quote-of-the-week bg-dark p-3 rounded shadow-sm">
-                        <h4 class="text-purple text-center">Quote of the Week</h4>
-                        <p class="text-light text-center">
-                            "Frankly, my dear, I don't give a damn." -Gone with the Wind (1939)
-                        </p>
-                    </div>
-                </div>
+            </div>
             </div>
 
             <!-- My Favourites Section -->
@@ -72,36 +34,30 @@ use App\Helpers\FileStorage;
                     Here are some of my all-time favourite series that have left a lasting impact.
                 </p>
                 <!-- Display Favourites -->
-                <?php if ($auth->isLogged()) {?>
-                    <div class="row mt-4">
+                <?php if ($auth->isLogged()): ?>
+                    <div class="row mt-4 favourites-container">
                         <?php
-                        $i = 1;
-                        if(sizeof($data['favourites']) == 0):
-                            {
-                                echo '<p class="text-center text-light"> You have no favourite series!</p>';
-                            } else: {
-                            foreach ($data['favourites'] as $favourite):
-                                {
-                                    echo '<div class="col-md-3 col-6 mb-4">';
-                                    echo '<a href="' . $link->url('post.detail', ['id' => $favourite->getId()]) . '" class="d-block">';
-                                    echo '<img src="' . ($favourite->getIsURL() ? $favourite->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $favourite->getObrazok()) . '" alt="Favourite Book ' . $i . '" class="img-fluid rounded shadow-sm">';
-                                    echo '</a>';
-                                    echo '</div>';
-                                }
-                                $i++;
-                            endforeach;
-                        }endif;
-
+                        if (sizeof($data['favourites']) == 0):
+                            echo '<p class="text-center text-light no-favourites"> You have no favourites!</p>';
+                        else:
+                            foreach ($data['favourites'] as $favourite): ?>
+                                <div class="col-md-3 col-6 mb-4 favourite-item" data-id="<?= $favourite->getId(); ?>">
+                                    <a href="<?= $link->url('post.detail', ['id' => $favourite->getId()]) ?>" class="d-block">
+                                        <img src="<?= $favourite->getIsURL() ? $favourite->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $favourite->getObrazok(); ?>"
+                                             alt="Favourite Book" class="img-fluid rounded shadow-sm">
+                                    </a>
+                                    <!-- Star Icon for Favourites -->
+                                    <i class="star-icon filled fas fa-star" data-id="<?= $favourite->getId(); ?>"></i>
+                                </div>
+                            <?php endforeach;
+                        endif;
                         ?>
                     </div>
-                <?php } else {
-                    echo '<a href="'.Configuration::LOGIN_URL.'" class="text-light text-decoration-none">';
-                    echo '<p class="text-center text-light"> Log in or register to add favourite books!</p>';
-                    echo '</a>';
-                }?>
-
-
+                <?php else: ?>
+                    <a href="<?= Configuration::LOGIN_URL ?>" class="text-light text-decoration-none">
+                        <p class="text-center text-light"> Log in or register to add favourite series!</p>
+                    </a>
+                <?php endif; ?>
             </section>
         </section>
     </main>
-<?php
