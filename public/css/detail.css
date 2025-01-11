@@ -142,6 +142,17 @@ main {
     background-color: #9b59b6; /* Purple background on hover */
     color: #fff; /* White text */
 }
+.star-icon {
+    color: #800080; /* Purple for unfilled stars */
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.star-icon.filled {
+    color: #FFD700; /* Gold for filled stars */
+}
 
 /* Responsive Design */
 @media (max-width: 767px) {
@@ -161,3 +172,4 @@ main {
         font-size: 1.2rem; /* Smaller icons on mobile */
     }
 }
+

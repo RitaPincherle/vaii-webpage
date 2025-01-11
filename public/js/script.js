@@ -53,7 +53,7 @@ function submitUserUpdateForm(event) {
     event.preventDefault();
     var form = document.getElementById('userUpForm');
     var formData = new FormData(form);
-    console.log(formData);
+
 
     // Send the form data to the PHP backend using AJAX
     fetch("http://localhost/?c=admin&a=update", {
@@ -93,3 +93,118 @@ function updateTable(users) {
     });
     table.innerHTML = tableHTML;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const stars = document.querySelectorAll(".star-icon");
+    const favouritesContainer = document.querySelector(".favourites-container");
+    const noFavouritesMessage = document.querySelector(".no-favourites");
+
+    stars.forEach(star => {
+        star.addEventListener("click", () => {
+            const postId = star.getAttribute("data-id");
+            const isFilled = star.classList.contains("filled");
+            const action = isFilled ? "remove" : "add";
+
+            // Send JSON data to the server
+            fetch("http://localhost/?c=favourite&a=update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ postId, action }),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    if (action === "add") {
+                         // Fill the star in the main section
+                        addFavouriteToUI(postId, star);
+                    } else {
+                        star.className ="star-icon fas fa-star";
+                        removeFavouriteFromUI(postId);
+                    }
+                })
+                .catch(err => console.error("Error updating favourites:", err));
+        });
+    });
+
+    // Function to add a favourite to the favourites section
+    function addFavouriteToUI(postId, star) {
+        // Check if the card already exists in the favourites section
+        const existingFavourite = favouritesContainer.querySelector(`[data-id="${postId}"]`);
+        if (existingFavourite) return; // Do nothing if it already exists
+
+        // Clone the post card from the main section
+        const postCard = star.closest(".image-container");
+        const favouriteClone = postCard.cloneNode(true);
+        star.className = "star-icon filled fas fa-star";
+
+        // Update the cloned card's star icon
+        const favouriteStar = favouriteClone.querySelector(".star-icon");
+        if (favouriteStar) {
+            favouriteStar.className ="star-icon filled fas fa-star"; // Always filled in the favourites section
+            favouriteStar.addEventListener("click", () => {
+                // Handle toggle for the cloned card
+                const isFilled = favouriteStar.classList.contains("filled");
+                const action = isFilled ? "remove" : "add";
+
+                // Send JSON data to the server
+                fetch("http://localhost/?c=favourite&a=update", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ postId, action }),
+                })
+                    .then(response => response.json())
+                    .then(() => {
+                        if (action === "remove") {
+                            removeFavouriteFromUI(postId); // Remove from favourites section
+                        }
+                    })
+                    .catch(err => console.error("Error updating favourites:", err));
+            });
+        }
+
+        // Ensure the cloned card has the correct `data-id` attribute
+        favouriteClone.setAttribute("data-id", postId);
+
+        // Remove "no favourites" message if present
+        if (noFavouritesMessage) {
+            noFavouritesMessage.remove();
+        }
+
+        // Append the cloned card to the favourites section
+        favouritesContainer.appendChild(favouriteClone);
+    }
+
+    // Function to remove a favourite from the favourites section
+    function removeFavouriteFromUI(postId) {
+        // Find the card in the favourites section
+        const favouriteToRemove = favouritesContainer.querySelector(`[data-id="${postId}"]`);
+
+        // Ensure the card exists before removing
+        if (favouriteToRemove) {
+            favouritesContainer.removeChild(favouriteToRemove);
+        } else {
+            console.error(`Favourite with postId ${postId} not found in the favourites section.`);
+        }
+
+        // Show "no favourites" message if the favourites section is now empty
+        if (favouritesContainer.children.length === 0) {
+            const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourite books!</p>';
+            favouritesContainer.innerHTML = noFavouritesHTML;
+        }
+
+        // Also unfill the star in the main section
+        const mainStar = document.querySelector(`.image-container .star-icon[data-id="${postId}"]`);
+
+        if (mainStar) {
+            mainStar.className = "star-icon far fa-star";
+        }
+    }
+});
+
+
+
+
+

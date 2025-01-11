@@ -51,93 +51,132 @@ class HomeController extends AControllerBase
      */
     public function books(): Response
     {
-        $posts = Post::getAll();
-        $data = array();
-        $favouritePosts = array();
+        $posts = Post::getAll(); // Get all posts
+        $data = [];
+        $favouritePosts = [];
 
-        if($this->app->getAuth()->isLogged()){
-            $autor = $_SESSION['user'];
-            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
-            foreach ($favourites as $favourite) {
-                $p = Post::getOne($favourite->getIdPostu());
-                if($p->getTypPostu() == 2)
-                    $favouritePosts[] = $p;
+        // Check if the user is logged in
+        if ($this->app->getAuth()->isLogged()) {
+            $author = $_SESSION['user'];
+
+            // Get all favourites for the logged-in user
+            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
+
+            foreach ($posts as $post) {
+                if (in_array($post->getId(), $favouritePostIds)) {
+                    if ($post->getTypPostu() == 2) {
+                        $favouritePosts[] = $post;
+                    }
+                }
+
+                // Add post to the general book list
+                if ($post->getTypPostu() == 2) {
+                    $data[] = $post;
+                }
+            }
+        } else {
+            // If user is not logged in, only populate the general book list
+            foreach ($posts as $post) {
+                if ($post->getTypPostu() == 2) {
+                    $data[] = $post;
+                }
             }
         }
 
-        foreach ($posts as $post) {
-            if ($post->getTypPostu() == 2) {
-                $data[] = $post;
-            }
-        }
-
-        return $this->html(
-            [
-                'posts' => $data,
-                'favourites' => $favouritePosts
-            ]);
+        // Pass posts and favourites to the view
+        return $this->html([
+            'posts' => $data,
+            'favourites' => $favouritePosts
+        ]);
     }
-    public function series(): Response
-    {
-        $posts = Post::getAll();
-        $data = array();
-        $favouritePosts = array();
 
-        if($this->app->getAuth()->isLogged()){
-            $autor = $_SESSION['user'];
-            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
-            foreach ($favourites as $favourite) {
-                $p = Post::getOne($favourite->getIdPostu());
-                if($p->getTypPostu() == 3)
-                    $favouritePosts[] = $p;
+    /**
+     * @throws \Exception
+     */
+    public function series(): Response {
+        $posts = Post::getAll(); // Get all posts
+        $data = [];
+        $favouritePosts = [];
+
+        // Check if the user is logged in
+        if ($this->app->getAuth()->isLogged()) {
+            $author = $_SESSION['user'];
+
+            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
+
+            foreach ($posts as $post) {
+                if (in_array($post->getId(), $favouritePostIds)) {
+                    if ($post->getTypPostu() == 3) {
+                        $favouritePosts[] = $post;
+                    }
+                }
+
+                // Add post to the general book list
+                if ($post->getTypPostu() == 3) {
+                    $data[] = $post;
+                }
+            }
+        } else {
+
+            foreach ($posts as $post) {
+                if ($post->getTypPostu() == 3) {
+                    $data[] = $post;
+                }
             }
         }
 
-        foreach ($posts as $post) {
-            if ($post->getTypPostu() == 3) {
-                $data[] = $post;
-            }
-        }
-
-        return $this->html(
-            [
-                'posts' => $data,
-                'favourites' => $favouritePosts
-            ]);
+        // Pass posts and favourites to the view
+        return $this->html([
+            'posts' => $data,
+            'favourites' => $favouritePosts
+        ]);
     }
+
 
     /**
      * @throws \Exception
      */
     public function movies(): Response
     {
-        $posts = Post::getAll();
-        $data = array();
-        $favouritePosts = array();
+        $posts = Post::getAll(); // Get all posts
+        $data = [];
+        $favouritePosts = [];
 
-        if($this->app->getAuth()->isLogged()){
-            $autor = $_SESSION['user'];
-            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
-            foreach ($favourites as $favourite) {
-                $p = Post::getOne($favourite->getIdPostu());
-                if($p->getTypPostu() == 1)
-                $favouritePosts[] = $p;
+        // Check if the user is logged in
+        if ($this->app->getAuth()->isLogged()) {
+            $author = $_SESSION['user'];
+
+            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
+
+            foreach ($posts as $post) {
+                if (in_array($post->getId(), $favouritePostIds)) {
+                    if ($post->getTypPostu() == 1) {
+                        $favouritePosts[] = $post;
+                    }
+                }
+
+                // Add post to the general book list
+                if ($post->getTypPostu() == 1) {
+                    $data[] = $post;
+                }
+            }
+        } else {
+
+            foreach ($posts as $post) {
+                if ($post->getTypPostu() == 1) {
+                    $data[] = $post;
+                }
             }
         }
 
-        foreach ($posts as $post) {
-            if ($post->getTypPostu() == 1) {
-                $data[] = $post;
-            }
-        }
-
-
-
-        return $this->html(
-            [
-                'posts' => $data,
-                'favourites' => $favouritePosts
-            ]);
+        // Pass posts and favourites to the view
+        return $this->html([
+            'posts' => $data,
+            'favourites' => $favouritePosts
+        ]);
     }
 
 }
