@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6, p, a, span {
 }
 
 .navbar .navbar-brand img {
-    width: 120px; /* Slightly smaller logo */
+    width: 55px; /* Slightly smaller logo */
     transition: width 0.3s ease; /* Smooth logo size transition */
 }
 
@@ -145,6 +145,10 @@ main {
 
 /* Responsive Design */
 @media (max-width: 767px) {
+    .navbar .navbar-brand img {
+        width: 40px; /* Slightly smaller logo */
+        transition: width 0.3s ease; /* Smooth logo size transition */
+    }
     .card-header h1 {
         font-size: 1.5rem; /* Smaller title on mobile */
     }

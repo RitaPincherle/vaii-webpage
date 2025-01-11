@@ -31,20 +31,22 @@ use App\Helpers\FileStorage;
                            style="font-size: 1.5rem;">
                             <i class="fas fa-arrow-left"></i>
                         </a>
-                        <a href="<?= $link->url('post.edit', ['id' => $data['post']->getId()]) ?>"
-                           class="edit-icon ml-2"
-                           style="font-size: 1.5rem; margin-left: 10px;">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="<?= $link->url('post.delete', ['id' => $data['post']->getId()]) ?>"
-                           class="delete-icon ml-2"
-                           style="font-size: 1.5rem; margin-left: 10px;">
-                            <i class="fas fa-trash-alt"></i></a>
+                        <?php if ($auth->isLogged() && ($auth->getLoggedUserName() == $data['post']->getAutor()) || $auth->isAdmin()){ ?>
+                            <a href="<?= $link->url('post.edit', ['id' => $data['post']->getId()]) ?>"
+                               class="edit-icon ml-2"
+                               style="font-size: 1.5rem; margin-left: 10px;">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="<?= $link->url('post.delete', ['id' => $data['post']->getId()]) ?>"
+                               class="delete-icon ml-2"
+                               style="font-size: 1.5rem; margin-left: 10px;">
+                                <i class="fas fa-trash-alt"></i></a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 

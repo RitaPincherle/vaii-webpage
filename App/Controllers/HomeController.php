@@ -45,15 +45,23 @@ class HomeController extends AControllerBase
     {
         return $this->html();
     }
+
+    /**
+     * @throws \Exception
+     */
     public function books(): Response
     {
         $posts = Post::getAll();
         $data = array();
+        $favouritePosts = array();
+
         if($this->app->getAuth()->isLogged()){
             $autor = $_SESSION['user'];
             $favourites = (new \App\Models\Favourite)->getFavourites($autor);
             foreach ($favourites as $favourite) {
-                $favouritePosts[] = Post::getOne($favourite->getIdPostu());
+                $p = Post::getOne($favourite->getIdPostu());
+                if($p->getTypPostu() == 2)
+                    $favouritePosts[] = $p;
             }
         }
 
@@ -63,8 +71,6 @@ class HomeController extends AControllerBase
             }
         }
 
-        $favouritePosts = array();
-
         return $this->html(
             [
                 'posts' => $data,
@@ -73,10 +79,65 @@ class HomeController extends AControllerBase
     }
     public function series(): Response
     {
-        return $this->html();
+        $posts = Post::getAll();
+        $data = array();
+        $favouritePosts = array();
+
+        if($this->app->getAuth()->isLogged()){
+            $autor = $_SESSION['user'];
+            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
+            foreach ($favourites as $favourite) {
+                $p = Post::getOne($favourite->getIdPostu());
+                if($p->getTypPostu() == 3)
+                    $favouritePosts[] = $p;
+            }
+        }
+
+        foreach ($posts as $post) {
+            if ($post->getTypPostu() == 3) {
+                $data[] = $post;
+            }
+        }
+
+        return $this->html(
+            [
+                'posts' => $data,
+                'favourites' => $favouritePosts
+            ]);
     }
+
+    /**
+     * @throws \Exception
+     */
     public function movies(): Response
     {
-        return $this->html();
+        $posts = Post::getAll();
+        $data = array();
+        $favouritePosts = array();
+
+        if($this->app->getAuth()->isLogged()){
+            $autor = $_SESSION['user'];
+            $favourites = (new \App\Models\Favourite)->getFavourites($autor);
+            foreach ($favourites as $favourite) {
+                $p = Post::getOne($favourite->getIdPostu());
+                if($p->getTypPostu() == 1)
+                $favouritePosts[] = $p;
+            }
+        }
+
+        foreach ($posts as $post) {
+            if ($post->getTypPostu() == 1) {
+                $data[] = $post;
+            }
+        }
+
+
+
+        return $this->html(
+            [
+                'posts' => $data,
+                'favourites' => $favouritePosts
+            ]);
     }
+
 }

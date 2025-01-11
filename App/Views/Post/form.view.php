@@ -72,8 +72,6 @@ if (!is_null(@$data['errors'])): ?>
                     <input type="url" class="form-control bg-dark text-light" id="urlInput" name="imageUrl" placeholder="Enter Image URL">
                 </div>
 
-
-
             <script>
                 window.onload = function () {
                     const isURL = "<?= @$data['post']?->getIsURL()?>";

@@ -46,15 +46,20 @@ use App\Models\Post;
         </div>
 
         <div class="col-12">
+            <h1 class="text-center text-purple">Selected Reviews</h1>
             <div class="row">
                 <?php for ($i = 0; $i < sizeof($data); $i++) {?>
                     <div class="col-lg-3 col-md-4 col-6 mb-4">
                         <div class="card shadow-sm">
                             <?php if ($data[$i]->getIsURL() == 1) {?>
-                                <img src="<?php echo $data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                                <a href="<?= $link->url('post.detail', ['id' => $data[$i]->getId()]) ?>">
+                                    <img src="<?php echo $data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                                </a>
                             <?php } else { ?>
-                                <img src="<?php  echo FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="card-img-top" alt="">
-                                <?php }?>
+                                <a href="<?= $link->url('post.detail', ['id' => $data[$i]->getId()]) ?>">
+                                    <img src="<?php  echo FileStorage::UPLOAD_DIR . '/' .$data[$i]->getObrazok() ?>" class="card-img-top" alt="">
+                                    <?php }?>
+                                </a>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $data[$i]->getNazov() ?></h5>
                                 <p class="card-text">

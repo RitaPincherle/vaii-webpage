@@ -3,6 +3,7 @@
  * @var LinkGenerator $link
  * @var App\Core\IAuthenticator $auth */
 
+use App\Config\Configuration;
 use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
 
@@ -73,25 +74,35 @@ use App\Helpers\FileStorage;
                 Here are some of my all-time favourite books that have left a lasting impact.
             </p>
             <!-- Display Favourites -->
-            <div class="row mt-4">
-                <?php
-                $i = 1;
-                if(sizeof($data['favourites']) == 0):
-                {
-                    echo '<p class="text-center text-light"> You have no favourite books!</p>';
-                } else: {
-                    foreach ($data['favourites'] as $favourite):
+            <?php if ($auth->isLogged()) {?>
+                <div class="row mt-4">
+                    <?php
+                    $i = 1;
+                    if(sizeof($data['favourites']) == 0):
                     {
-                        echo '<div class="col-md-3 col-6 mb-4">';
-                        echo '<img src="' . ($favourite->getIsURL() ? $favourite->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $favourite->getObrazok()) . '" alt="Favourite Book ' . $i . '" class="img-fluid rounded shadow-sm">';
-                        echo '</div>';
-                    }
-                    $i++;
-                    endforeach;
-                }endif;
+                        echo '<p class="text-center text-light"> You have no favourite books!</p>';
+                    } else: {
+                        foreach ($data['favourites'] as $favourite):
+                        {
+                            echo '<div class="col-md-3 col-6 mb-4">';
+                            echo '<a href="' . $link->url('post.detail', ['id' => $favourite->getId()]) . '" class="d-block">';
+                            echo '<img src="' . ($favourite->getIsURL() ? $favourite->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $favourite->getObrazok()) . '" alt="Favourite Book ' . $i . '" class="img-fluid rounded shadow-sm">';
+                            echo '</a>';
+                            echo '</div>';
+                        }
+                        $i++;
+                        endforeach;
+                    }endif;
 
-                ?>
-            </div>
+                    ?>
+                </div>
+            <?php } else {
+                echo '<a href="'.Configuration::LOGIN_URL.'" class="text-light text-decoration-none">';
+                echo '<p class="text-center text-light"> Log in or register to add favourite books!</p>';
+                echo '</a>';
+            }?>
+
+
         </section>
     </section>
 </main>

@@ -28,7 +28,7 @@ use App\Core\LinkGenerator;
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid bg-black">
         <a class="navbar-brand" href="<?= $link->url("home.index") ?>">
-            <img src="public/images/vaiicko_logo.png" alt="logo" title="<?= Configuration::APP_NAME ?>" />
+            <img src="public/images/logo.webp" alt="logo" title="Review Hub" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
