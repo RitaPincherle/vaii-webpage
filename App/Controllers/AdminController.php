@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Comment;
+use App\Models\Favourite;
+use App\Models\Post;
 use App\Models\User;
 
 /**
@@ -48,6 +51,32 @@ class AdminController extends AControllerBase
                 $user->setAdmin(1);
                 $user->save();
             } elseif($val == 2){
+                $autor = $user->getMeno();
+                $posts = Post::getAll("autor = ?",[$autor]);
+                foreach ($posts as $post){
+                    $post->setFavourites();
+                    $favourites = $post->getFavourites();
+                    foreach ($favourites as $favourite){
+                        $favourite->delete();
+                    }
+                    $comments = $post->getComments();
+
+                    foreach ($comments as $comment){
+                        $comment->delete();
+                    }
+                    $post->delete();
+                }
+
+                $userComments = Comment::getAll("autor = ?",[$autor]);
+                foreach ($userComments as $comment){
+                    $comment->delete();
+                }
+
+                $userFavourites = Favourite::getAll("id_autor = ?",[$autor]);
+                foreach ($userFavourites as $favourite){
+                    $favourite->delete();
+                }
+
                 $user->delete();
             }else{
                 $user->setAdmin(0);

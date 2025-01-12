@@ -7,6 +7,7 @@ use App\Core\HTTPException;
 use App\Core\Responses\RedirectResponse;
 use App\Core\Responses\Response;
 use App\Helpers\FileStorage;
+use App\Models\Comment;
 use App\Models\Post;
 use Exception;
 
@@ -57,6 +58,34 @@ class PostController extends AControllerBase
     }
 
     /**
+     * @throws Exception
+     */
+    public function myReviews(): Response
+    {
+        $userId = $_SESSION['user'] ?? null;
+
+        $posts = Post::getAll("autor = ?", [$userId]);
+        $movies = array();
+        $series = array();
+        $books = array();
+        foreach ($posts as $post) {
+            if($post->getTypPostu() == 2) {
+                $books[] = $post;
+
+            }elseif ($post->getTypPostu() == 3) {
+                $series[] = $post;
+            }else{
+                $movies[] = $post;
+            }
+        }
+        return $this->html(
+            [
+                'books' => $books,
+                'series' => $series,
+                'movies' => $movies
+            ]);
+    }
+    /**
      * @throws HTTPException
      * @throws Exception
      */
@@ -70,12 +99,17 @@ class PostController extends AControllerBase
         } else {
             $post->setFavourites();
             $favourites = $post->getFavourites();
+            $comments = $post->getComments();
             if($post->getIsURL() == 0){
                 FileStorage::deleteFile($post->getObrazok());
             }
             foreach ($favourites as $favourite) {
                 $favourite->delete();
             }
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+
             $post->delete();
             return new RedirectResponse($this->url("home.index"));
         }
@@ -86,14 +120,19 @@ class PostController extends AControllerBase
      */
     public function detail(): Response
     {
-        $id = (int)$this->request()->getValue('id');
+        $postId = (int)$this->request()->getValue('id');
         try {
-            $post = Post::getOne($id);
+            $post = Post::getOne($postId);
         } catch (Exception $e) {
             throw new HTTPException(404);
         }
+        $comments = Comment::getAll("id_postu = ?", (array)$postId);
 
-        return $this->html(["post" => $post]);
+        return $this->html(
+            [
+                "post" => $post,
+                "comments" => $comments
+            ]);
     }
 
     /**

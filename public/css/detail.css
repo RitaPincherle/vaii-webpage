@@ -77,7 +77,6 @@ main {
 
 .card-header {
     background-color: #343a40; /* Slightly lighter header */
-    color: #fff; /* White text */
     padding: 20px;
     text-align: center;
 }
@@ -92,10 +91,6 @@ main {
 .card-body {
     padding: 20px;
     color: #fff; /* White text */
-}
-
-.card-body p, .card-body h5 {
-    color: #fff; /* Ensure card content text is white */
 }
 
 .post-image {
@@ -125,9 +120,30 @@ main {
     margin: 0 10px;
     transition: color 0.3s ease;
 }
-
+.comment-actions a{
+    color: #fff; /* White icons */
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+.post-author{
+    color: #6a1b9a;
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.comment-author {
+    color: #6a1b9a;
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
 .post-actions a:hover {
     color: #bb86fc; /* Light purple on hover */
+}
+.comment-actions a:hover{
+    color: #bb86fc;
 }
 
 /* Buttons */

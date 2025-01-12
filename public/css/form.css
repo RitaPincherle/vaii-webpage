@@ -86,6 +86,7 @@
 
 /* Submit Button */
 .custom-btn {
+    margin-top: 1em;
     color: #9b59b6; /* Purple text */
     background-color: white; /* White background */
     border: 2px solid #9b59b6; /* Purple border */

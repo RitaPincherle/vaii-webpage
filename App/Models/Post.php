@@ -97,5 +97,7 @@ class Post extends Model
     public function getFavourites(): array{
         return $this->favourites;
     }
-
+    public function getComments(): ?array{
+        return Comment::getAll("id_postu =?", [$this->id]);
+    }
 }

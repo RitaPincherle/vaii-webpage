@@ -12,6 +12,12 @@ class FavouriteController extends AControllerBase
     /**
      * @inheritDoc
      */
+    public function authorize($action): bool
+    {
+
+        return $this->app->getAuth()->isLogged();
+
+    }
     public function index(): Response
     {
         return $this->redirect("?c=Home");

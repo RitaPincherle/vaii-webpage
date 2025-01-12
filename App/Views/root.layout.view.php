@@ -65,6 +65,9 @@ use App\Core\LinkGenerator;
                         <a class="nav-link" href="<?= $link->url("post.add") ?>">Add review</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= $link->url("post.myReviews") ?>">My reviews</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= $link->url("auth.logout") ?>">Logout</a>
                     </li>
 

@@ -12,6 +12,9 @@ class Authenticator implements IAuthenticator
         session_start();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function login($login, $password): bool
     {
         $user = User::getAll("meno = ?", [$login]);
@@ -36,6 +39,9 @@ class Authenticator implements IAuthenticator
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getLoggedUserName(): string
     {
         return $_SESSION['user'] ?? throw new \Exception("User not logged in");
@@ -55,6 +61,10 @@ class Authenticator implements IAuthenticator
     {
         return $_SESSION['user'];
     }
+
+    /**
+     * @throws \Exception
+     */
     public function isAdmin(): bool
     {
         if (!$_SESSION){
@@ -64,6 +74,6 @@ class Authenticator implements IAuthenticator
         if (sizeof($user) != 1) {
             return false;
         }
-        return $user[0]->getAdmin() == 0 ? false : true;
+        return !($user[0]->getAdmin() == 0);
     }
 }

@@ -115,11 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(response => response.json())
                 .then(() => {
                     if (action === "add") {
-                         // Fill the star in the main section
-                        addFavouriteToUI(postId, star);
+                        addFavouriteToUI(postId, star); // Add to favourites
                     } else {
-                        star.className ="star-icon fas fa-star";
-                        removeFavouriteFromUI(postId);
+                        star.className = "star-icon far fa-star"; // Unfill star in the main section
+                        removeFavouriteFromUI(postId); // Remove from favourites
                     }
                 })
                 .catch(err => console.error("Error updating favourites:", err));
@@ -129,60 +128,59 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to add a favourite to the favourites section
     function addFavouriteToUI(postId, star) {
         const noFavouritesMessage = document.querySelector(".no-favourites");
+
         // Check if the card already exists in the favourites section
         const existingFavourite = favouritesContainer.querySelector(`[data-id="${postId}"]`);
         if (existingFavourite) return; // Do nothing if it already exists
 
-        // Clone the post card from the main section
+        // Clone only the image and star from the main section
         const postCard = star.closest(".image-container");
-        const favouriteClone = postCard.cloneNode(true);
-        star.className = "star-icon filled fas fa-star";
+        const imageElement = postCard.querySelector("img");
+        const favouriteClone = document.createElement("div");
 
-        // Update the cloned card's star icon
-        const favouriteStar = favouriteClone.querySelector(".star-icon");
-        if (favouriteStar) {
-            favouriteStar.className ="star-icon filled fas fa-star"; // Always filled in the favourites section
-            favouriteStar.addEventListener("click", () => {
-                // Handle toggle for the cloned card
-                const isFilled = favouriteStar.classList.contains("filled");
-                const action = isFilled ? "remove" : "add";
-
-                // Send JSON data to the server
-                fetch("http://localhost/?c=favourite&a=update", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ postId, action }),
-                })
-                    .then(response => response.json())
-                    .then(() => {
-                        if (action === "remove") {
-                            removeFavouriteFromUI(postId); // Remove from favourites section
-                        }
-                    })
-                    .catch(err => console.error("Error updating favourites:", err));
-            });
-        }
-
-        // Ensure the cloned card has the correct `data-id` attribute
+        // Set up the cloned element
+        favouriteClone.className = "col-md-3 col-6 mb-4 favourite-item";
         favouriteClone.setAttribute("data-id", postId);
+        favouriteClone.innerHTML = `
+            <a href="#">
+                <img src="${imageElement.src}" alt="Favourite Book" class="img-fluid rounded shadow-sm">
+            </a>
+            <i class="star-icon filled fas fa-star" data-id="${postId}"></i>
+        `;
+
+        // Add click event to the cloned star in the favourites section
+        const favouriteStar = favouriteClone.querySelector(".star-icon");
+        favouriteStar.addEventListener("click", () => {
+            const isFilled = favouriteStar.classList.contains("filled");
+            const action = isFilled ? "remove" : "add";
+
+            // Send JSON data to the server
+            fetch("http://localhost/?c=favourite&a=update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ postId, action }),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    if (action === "remove") {
+                        removeFavouriteFromUI(postId); // Remove from favourites
+                    }
+                })
+                .catch(err => console.error("Error updating favourites:", err));
+        });
 
         // Remove "no favourites" message if present
         if (noFavouritesMessage) {
-
-            try {
-                noFavouritesMessage.remove();
-                console.log("Message removed successfully.");
-            } catch (error) {
-                console.error("Failed to remove noFavouritesMessage:", error);
-            }
-        } else {
-            console.log("noFavouritesMessage not found.");
+            noFavouritesMessage.remove();
         }
 
         // Append the cloned card to the favourites section
         favouritesContainer.appendChild(favouriteClone);
+
+        // Fill the star in the main section
+        star.className = "star-icon filled fas fa-star";
     }
 
     // Function to remove a favourite from the favourites section
@@ -199,18 +197,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Show "no favourites" message if the favourites section is now empty
         if (favouritesContainer.children.length === 0) {
-            const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourites!</p></div>';
+            const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourites!</p>';
             favouritesContainer.innerHTML = noFavouritesHTML;
         }
 
         // Also unfill the star in the main section
         const mainStar = document.querySelector(`.image-container .star-icon[data-id="${postId}"]`);
-
         if (mainStar) {
             mainStar.className = "star-icon far fa-star";
         }
     }
 });
+
 
 
 
