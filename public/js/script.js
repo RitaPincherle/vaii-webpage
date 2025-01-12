@@ -1,5 +1,5 @@
 function initializeImageSwitch(isURL, obrazok) {
-    // Get the radio buttons and corresponding containers
+
     const fileOption = document.getElementById('imageSwitchFile');
     const urlOption = document.getElementById('imageSwitchURL');
     const fileUploadContainer = document.getElementById('fileUploadContainer');
@@ -7,7 +7,7 @@ function initializeImageSwitch(isURL, obrazok) {
     const fileInput = document.getElementById('fileInput'); // File input field
     const urlInput = document.getElementById('urlInput');   // URL input field
 
-    // Initialize based on isURL value
+
     if (isURL == 1) {
         urlOption.checked = true;
         fileUploadContainer.style.display = 'none';
@@ -20,7 +20,7 @@ function initializeImageSwitch(isURL, obrazok) {
         urlInput.value = '';
     }
 
-    // Event listener to toggle between URL input and file upload
+
     fileOption.addEventListener('change', function () {
         if (fileOption.checked) {
             fileUploadContainer.style.display = 'block';
@@ -55,20 +55,20 @@ function submitUserUpdateForm(event) {
     var formData = new FormData(form);
 
 
-    // Send the form data to the PHP backend using AJAX
+
     fetch("http://localhost/?c=admin&a=update", {
         method: 'POST',
         body: formData
     })
         .then(response => {
             if (response.ok) {
-                return response.json(); // Parse the JSON response
+                return response.json();
             } else {
                 throw new Error('Something went wrong');
             }
         })
         .then(updatedUsers => {
-            // Update the displayed table with the updated user data
+
             updateTable(updatedUsers);
             alert('Changes have been saved successfully.');
         })
@@ -80,9 +80,9 @@ function submitUserUpdateForm(event) {
 
 function updateTable(users) {
     var table = document.getElementById('userTable');
-    table.innerHTML = ''; // Clear the existing table
+    table.innerHTML = '';
 
-    // Rebuild the table with the updated user data
+
     var tableHTML = '<tr><th>Username</th><th>Is Admin</th><th>Delete User</th></tr>';
     users.forEach(user => {
         tableHTML += '<tr>';
@@ -115,30 +115,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(response => response.json())
                 .then(() => {
                     if (action === "add") {
-                        addFavouriteToUI(postId, star); // Add to favourites
+                        addFavouriteToUI(postId, star);
                     } else {
-                        star.className = "star-icon far fa-star"; // Unfill star in the main section
-                        removeFavouriteFromUI(postId); // Remove from favourites
+                        star.className = "star-icon far fa-star";
+                        removeFavouriteFromUI(postId);
                     }
                 })
                 .catch(err => console.error("Error updating favourites:", err));
         });
     });
 
-    // Function to add a favourite to the favourites section
+
     function addFavouriteToUI(postId, star) {
         const noFavouritesMessage = document.querySelector(".no-favourites");
 
-        // Check if the card already exists in the favourites section
-        const existingFavourite = favouritesContainer.querySelector(`[data-id="${postId}"]`);
-        if (existingFavourite) return; // Do nothing if it already exists
 
-        // Clone only the image and star from the main section
+        const existingFavourite = favouritesContainer.querySelector(`[data-id="${postId}"]`);
+        if (existingFavourite) return;
+
+
         const postCard = star.closest(".image-container");
         const imageElement = postCard.querySelector("img");
         const favouriteClone = document.createElement("div");
 
-        // Set up the cloned element
+
         favouriteClone.className = "col-md-3 col-6 mb-4 favourite-item";
         favouriteClone.setAttribute("data-id", postId);
         favouriteClone.innerHTML = `
@@ -148,13 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="star-icon filled fas fa-star" data-id="${postId}"></i>
         `;
 
-        // Add click event to the cloned star in the favourites section
+
         const favouriteStar = favouriteClone.querySelector(".star-icon");
         favouriteStar.addEventListener("click", () => {
             const isFilled = favouriteStar.classList.contains("filled");
             const action = isFilled ? "remove" : "add";
 
-            // Send JSON data to the server
+
             fetch("http://localhost/?c=favourite&a=update", {
                 method: "POST",
                 headers: {
@@ -171,37 +171,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 .catch(err => console.error("Error updating favourites:", err));
         });
 
-        // Remove "no favourites" message if present
+
         if (noFavouritesMessage) {
             noFavouritesMessage.remove();
         }
 
-        // Append the cloned card to the favourites section
+
         favouritesContainer.appendChild(favouriteClone);
 
-        // Fill the star in the main section
+
         star.className = "star-icon filled fas fa-star";
     }
 
-    // Function to remove a favourite from the favourites section
+
     function removeFavouriteFromUI(postId) {
-        // Find the card in the favourites section
+
         const favouriteToRemove = favouritesContainer.querySelector(`[data-id="${postId}"]`);
 
-        // Ensure the card exists before removing
+
         if (favouriteToRemove) {
             favouritesContainer.removeChild(favouriteToRemove);
         } else {
             console.error(`Favourite with postId ${postId} not found in the favourites section.`);
         }
 
-        // Show "no favourites" message if the favourites section is now empty
+
         if (favouritesContainer.children.length === 0) {
             const noFavouritesHTML = '<p class="text-center text-light no-favourites"> You have no favourites!</p>';
             favouritesContainer.innerHTML = noFavouritesHTML;
         }
 
-        // Also unfill the star in the main section
+
         const mainStar = document.querySelector(`.image-container .star-icon[data-id="${postId}"]`);
         if (mainStar) {
             mainStar.className = "star-icon far fa-star";

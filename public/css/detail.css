@@ -1,82 +1,76 @@
-/* Basic Reset */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body and Main Content */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212; /* Dark background */
-    color: #fff; /* White text */
+    background-color: #121212;
+    color: #fff;
     line-height: 1.6;
     padding: 20px;
 }
 
-/* Text Styles */
 h1, h2, h3, h4, h5, h6, p, a, span {
-    color: #fff; /* Set text color to white */
+    color: #fff;
 }
 
-/* Navbar */
 .navbar {
-    border-bottom: 1px solid #333; /* Subtle border at the bottom */
+    border-bottom: 1px solid #333;
 }
 
 .navbar .navbar-brand img {
-    width: 55px; /* Slightly smaller logo */
-    transition: width 0.3s ease; /* Smooth logo size transition */
+    width: 55px;
+    transition: width 0.3s ease;
 }
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus {
-    color: #bb86fc; /* Lighter purple on hover */
-    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
-    border-radius: 5px; /* Rounded corners for the link */
+    color: #bb86fc;
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 5px;
 }
 
-/* Navbar items on mobile */
 .navbar-collapse {
-    font-size: 14px; /* Smaller font size for mobile */
+    font-size: 14px;
 }
 
-
-
-/* Footer */
 footer {
-    background-color: #1c1c1c; /* Dark footer */
-    color: #fff; /* White text for footer */
+    background-color: #1c1c1c;
+    color: #fff;
     text-align: center;
     padding: 20px 0;
     font-size: 14px;
-    border-top: 1px solid #333; /* Subtle footer border */
+    border-top: 1px solid #333;
 }
 
 footer a {
-    color: #fff; /* White color for footer links */
+    color: #fff;
     text-decoration: none;
 }
 
 footer a:hover {
-    color: #bb86fc; /* Lighter purple on hover */
+    color: #bb86fc;
 }
 
-/* Main Content */
+
 main {
     padding: 20px;
 }
 
-/* Minimalist Cards or Content Blocks */
+
 .card {
-    background-color: #1c1c1c; /* Dark card background */
-    border: 1px solid #333; /* Subtle border */
+    background-color: #1c1c1c;
+    border: 1px solid #333;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .card-header {
-    background-color: #343a40; /* Slightly lighter header */
+    background-color: #343a40;
     padding: 20px;
     text-align: center;
 }
@@ -85,12 +79,12 @@ main {
     font-size: 2rem;
     font-weight: bold;
     margin: 0;
-    color: #fff; /* White for the title */
+    color: #fff;
 }
 
 .card-body {
     padding: 20px;
-    color: #fff; /* White text */
+    color: #fff;
 }
 
 .post-image {
@@ -101,27 +95,27 @@ main {
 }
 
 .card-footer {
-    background-color: #1c1c1c; /* Same as the card body for uniformity */
+    background-color: #1c1c1c;
     padding: 20px;
-    border-top: 1px solid #333; /* Subtle border */
+    border-top: 1px solid #333;
     text-align: center;
 }
 
 .post-rating {
     font-size: 1.2rem;
-    color: #fff; /* White for the rating */
+    color: #fff;
     margin-bottom: 10px;
 }
 
 .post-actions a {
-    color: #fff; /* White icons */
+    color: #fff;
     text-decoration: none;
     font-size: 1.5rem;
     margin: 0 10px;
     transition: color 0.3s ease;
 }
 .comment-actions a{
-    color: #fff; /* White icons */
+    color: #fff;
     text-decoration: none;
     font-size: 1.5rem;
     margin: 0 10px;
@@ -140,7 +134,7 @@ main {
     margin-bottom: 0;
 }
 .post-actions a:hover {
-    color: #bb86fc; /* Light purple on hover */
+    color: #bb86fc;
 }
 .comment-actions a:hover{
     color: #bb86fc;
@@ -149,17 +143,17 @@ main {
 /* Buttons */
 .btn-secondary {
     background-color: transparent;
-    color: #fff; /* White text for buttons */
+    color: #fff;
     border: 1px solid #9b59b6;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-secondary:hover {
-    background-color: #9b59b6; /* Purple background on hover */
-    color: #fff; /* White text */
+    background-color: #9b59b6;
+    color: #fff;
 }
 .star-icon {
-    color: #800080; /* Purple for unfilled stars */
+    color: #800080;
     font-size: 1.5rem;
     cursor: pointer;
     margin-left: 10px;
@@ -167,25 +161,25 @@ main {
 }
 
 .star-icon.filled {
-    color: #FFD700; /* Gold for filled stars */
+    color: #FFD700;
 }
 
-/* Responsive Design */
+
 @media (max-width: 767px) {
     .navbar .navbar-brand img {
-        width: 40px; /* Slightly smaller logo */
-        transition: width 0.3s ease; /* Smooth logo size transition */
+        width: 40px;
+        transition: width 0.3s ease;
     }
     .card-header h1 {
-        font-size: 1.5rem; /* Smaller title on mobile */
+        font-size: 1.5rem;
     }
 
     .post-text {
-        font-size: 1rem; /* Adjust text size for mobile */
+        font-size: 1rem;
     }
 
     .post-actions a {
-        font-size: 1.2rem; /* Smaller icons on mobile */
+        font-size: 1.2rem;
     }
 }
 

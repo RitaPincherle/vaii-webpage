@@ -15,7 +15,7 @@ use App\Helpers\FileStorage;
                 <div class="card-header text-center">
                     <h1 class="post-title"><?= htmlspecialchars($data['post']->getNazov()) ?></h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <img src="<?= $data['post']->getIsURL() ? $data['post']->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $data['post']->getObrazok(); ?>"
                          alt="<?= htmlspecialchars($data['post']->getNazov()) ?>" class="img-fluid rounded mb-4 post-image">
                     <p class="post-author">By: <?= htmlspecialchars($data['post']->getAutor()) ?></p>

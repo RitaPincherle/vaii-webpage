@@ -1,78 +1,66 @@
 .navbar .navbar-nav .nav-link {
-    color: #9b59b6; /* Purple color for links */
+    color: #9b59b6;
     font-weight: 500;
-    padding: 10px 15px; /* Padding for larger click area */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effects */
+    padding: 10px 15px;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus {
-    color: #bb86fc; /* Lighter purple on hover */
-    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
-    border-radius: 5px; /* Rounded corners for the link */
+    color: #bb86fc;
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 5px;
 }
 .carousel-item img{
-    height: 300px; /* Make carousel images smaller */
+    height: 300px;
     object-fit: cover;
 }
 
-/* Navbar items on mobile */
 .navbar-collapse {
-    font-size: 14px; /* Smaller font size for mobile */
+    font-size: 14px;
 }
 
 .list-group {
-    background-color: #1c1c1c; /* Dark background for the list group */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
 }
 
 .list-group-item {
-    background-color: #1c1c1c; /* Dark background for each item */
-    border: 1px solid #333; /* Subtle border to separate items */
-    color: #aaa; /* Light text color */
-    font-size: 16px; /* Slightly larger text for readability */
-    padding: 12px 15px; /* Padding for better spacing */
-    transition: background-color 0.3s, color 0.3s; /* Smooth hover transitions */
+    background-color: #1c1c1c;
+    border: 1px solid #333;
+    color: #aaa;
+    font-size: 16px;
+    padding: 12px 15px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .list-group-item:hover,
 .list-group-item:focus {
-    background-color: #9b59b6; /* Purple background on hover */
-    color: #fff; /* White text when hovered */
-    border-color: #9b59b6; /* Purple border when hovered */
+    background-color: #9b59b6;
+    color: #fff;
+    border-color: #9b59b6;
 }
 
 .list-group-item.active {
-    background-color: #9b59b6; /* Purple background for active item */
-    border-color: #9b59b6; /* Purple border for active item */
-    color: #fff; /* White text for active item */
+    background-color: #9b59b6;
+    border-color: #9b59b6;
+    color: #fff;
 }
-/*.edit-icon, .delete-icon {*/
-/*    font-size: 1.5rem;*/
-/*    position: relative;*/
-/*    cursor: pointer;*/
-/*    transition: color 0.2s ease; !* Smooth color transition on hover *!*/
-/*}*/
-/*.icon-group {*/
-/*    position: relative;*/
-/*    display: inline-block; !* Ensures icons align side by side *!*/
-/*}*/
 
-/* Mobile Adjustments */
 @media (max-width: 767px) {
     .list-group-item {
-        font-size: 14px; /* Smaller text on mobile */
-        padding: 10px 12px; /* Smaller padding for mobile */
+        font-size: 14px;
+        padding: 10px 12px;
     }
 
     .list-group {
-        margin-top: 15px; /* Reduce top margin for mobile */
+        margin-top: 15px;
     }
 
     .carousel-item img {
-        height: 200px; /* Make carousel images smaller */
+        height: 200px;
         object-fit: cover;
     }
 

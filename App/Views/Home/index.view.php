@@ -88,14 +88,14 @@ use App\Models\Post;
             </div>
         </div>
 
-        <div class="col-lg-3 col-12 mt-4 mt-lg-0">
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active">Trending Books</a>
-                <a href="#" class="list-group-item list-group-item-action">Top Rated Movies</a>
-                <a href="#" class="list-group-item list-group-item-action">Trending Series</a>
-                <a href="#" class="list-group-item list-group-item-action">New posts</a>
-            </div>
-        </div>
+<!--        <div class="col-lg-3 col-12 mt-4 mt-lg-0">-->
+<!--            <div class="list-group">-->
+<!--                <a href="#" class="list-group-item list-group-item-action active">Trending Books</a>-->
+<!--                <a href="#" class="list-group-item list-group-item-action">Top Rated Movies</a>-->
+<!--                <a href="#" class="list-group-item list-group-item-action">Trending Series</a>-->
+<!--                <a href="#" class="list-group-item list-group-item-action">New posts</a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </main>
 

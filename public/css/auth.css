@@ -1,5 +1,5 @@
 .text-purple {
-    color: #6a1b9a; /* Adjust to match your theme */
+    color: #6a1b9a;
 }
 
 .btn-purple {
@@ -24,9 +24,9 @@ table th, table td {
     vertical-align: middle;
 }
 .custom-btn {
-    color: #9b59b6; /* Purple text */
-    background-color: white; /* White background */
-    border: 2px solid #9b59b6; /* Purple border */
+    color: #9b59b6;
+    background-color: white;
+    border: 2px solid #9b59b6;
     font-weight: bold;
     transition: all 0.3s ease;
 }

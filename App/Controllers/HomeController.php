@@ -26,10 +26,6 @@ class HomeController extends AControllerBase
         return true;
     }
 
-    /**
-     * Example of an action (authorization needed)
-     * @return \App\Core\Responses\Response|\App\Core\Responses\ViewResponse
-     */
     public function index(): Response
     {
         $posts = Post::getAll();
@@ -37,21 +33,14 @@ class HomeController extends AControllerBase
         return $this->html($posts);
     }
 
-    /**
-     * Example of an action accessible without authorization
-     * @return \App\Core\Responses\ViewResponse
-     */
-    public function contact(): Response
-    {
-        return $this->html();
-    }
+
 
     /**
      * @throws \Exception
      */
     public function books(): Response
     {
-        $posts = Post::getAll(); // Get all posts
+        $posts = Post::getAll();
         $data = [];
         $favouritePosts = [];
 
@@ -76,7 +65,7 @@ class HomeController extends AControllerBase
                 }
             }
         } else {
-            // If user is not logged in, only populate the general book list
+
             foreach ($posts as $post) {
                 if ($post->getTypPostu() == 2) {
                     $data[] = $post;
@@ -84,7 +73,7 @@ class HomeController extends AControllerBase
             }
         }
 
-        // Pass posts and favourites to the view
+
         return $this->html([
             'posts' => $data,
             'favourites' => $favouritePosts
@@ -95,11 +84,11 @@ class HomeController extends AControllerBase
      * @throws \Exception
      */
     public function series(): Response {
-        $posts = Post::getAll(); // Get all posts
+        $posts = Post::getAll();
         $data = [];
         $favouritePosts = [];
 
-        // Check if the user is logged in
+
         if ($this->app->getAuth()->isLogged()) {
             $author = $_SESSION['user'];
 
@@ -113,7 +102,7 @@ class HomeController extends AControllerBase
                     }
                 }
 
-                // Add post to the general book list
+
                 if ($post->getTypPostu() == 3) {
                     $data[] = $post;
                 }
@@ -127,7 +116,7 @@ class HomeController extends AControllerBase
             }
         }
 
-        // Pass posts and favourites to the view
+
         return $this->html([
             'posts' => $data,
             'favourites' => $favouritePosts
@@ -140,11 +129,11 @@ class HomeController extends AControllerBase
      */
     public function movies(): Response
     {
-        $posts = Post::getAll(); // Get all posts
+        $posts = Post::getAll();
         $data = [];
         $favouritePosts = [];
 
-        // Check if the user is logged in
+
         if ($this->app->getAuth()->isLogged()) {
             $author = $_SESSION['user'];
 
@@ -158,7 +147,7 @@ class HomeController extends AControllerBase
                     }
                 }
 
-                // Add post to the general book list
+
                 if ($post->getTypPostu() == 1) {
                     $data[] = $post;
                 }
@@ -172,7 +161,7 @@ class HomeController extends AControllerBase
             }
         }
 
-        // Pass posts and favourites to the view
+
         return $this->html([
             'posts' => $data,
             'favourites' => $favouritePosts

@@ -2,36 +2,34 @@
     margin-top: 20px;
 }
 
-/* Toggle Container */
 .custom-toggle {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap for smaller screens */
-    width: 100%; /* Adjust width to fit parent container */
-    max-width: 300px; /* Restrict maximum width */
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 300px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 0 auto 20px; /* Center the toggle on the form */
+    margin: 0 auto 20px;
 }
 .original-file {
-    background-color: #222; /* Dark background */
-    color: #fff; /* White text */
+    background-color: #222;
+    color: #fff;
     padding: 10px;
     border-radius: 8px;
     font-size: 0.9rem;
     display: inline-block;
-    max-width: 100%; /* Responsive container */
-    word-wrap: break-word; /* Wrap long text */
+    max-width: 100%;
+    word-wrap: break-word;
     margin-bottom: 15px;
 }
 
 .file-name {
     display: inline-block;
-    color: #9b59b6; /* Purple text for emphasis */
-    word-break: break-all; /* Break long URLs */
+    color: #9b59b6;
+    word-break: break-all;
 }
 
-/* Toggle Options */
 .toggle-option {
     flex: 1;
     text-align: center;
@@ -50,7 +48,6 @@
     display: none;
 }
 
-/* Active State */
 .toggle-option input[type="radio"]:checked + span {
     font-weight: bold;
     color: #9b59b6;
@@ -62,7 +59,7 @@
     background-color: #444;
 }
 
-/* File Upload and URL Input Fields */
+
 #fileUploadContainer,
 #urlInputContainer {
     display: none;
@@ -73,7 +70,6 @@
     display: block;
 }
 
-/* Input Fields */
 .form-control {
     background-color: #222;
     color: #fff;
@@ -84,12 +80,12 @@
     color: #aaa;
 }
 
-/* Submit Button */
+
 .custom-btn {
     margin-top: 1em;
-    color: #9b59b6; /* Purple text */
-    background-color: white; /* White background */
-    border: 2px solid #9b59b6; /* Purple border */
+    color: #9b59b6;
+    background-color: white;
+    border: 2px solid #9b59b6;
     font-weight: bold;
     transition: all 0.3s ease;
 }
@@ -100,14 +96,13 @@
     border-color: #9b59b6;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .custom-toggle {
-        flex-direction: column; /* Stack options vertically */
+        flex-direction: column;
     }
 
     .toggle-option {
-        font-size: 1rem; /* Adjust font size for readability */
+        font-size: 1rem;
         padding: 12px;
     }
 }

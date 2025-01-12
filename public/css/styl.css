@@ -1,134 +1,124 @@
-/* Basic Reset */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body and Main Content */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212; /* Dark background */
-    color: #fff; /* White text */
+    background-color: #121212;
+    color: #fff;
     line-height: 1.6;
 }
 
-/* Navbar */
 .navbar {
-    background-color: #1c1c1c; /* Darker black navbar for a sleek look */
-    border-bottom: 1px solid #333; /* Subtle border at the bottom */
+    background-color: #1c1c1c;
+    border-bottom: 1px solid #333;
 }
 
 .navbar .navbar-brand img {
-    width: 120px; /* Slightly smaller logo */
-    transition: width 0.3s ease; /* Smooth logo size transition */
+    width: 120px;
+    transition: width 0.3s ease;
 }
 
 .navbar .navbar-nav .nav-link {
-    color: #9b59b6; /* Purple color for links */
+    color: #9b59b6;
     font-weight: 500;
-    padding: 10px 15px; /* Padding for larger click area */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effects */
+    padding: 10px 15px;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus {
-    color: #bb86fc; /* Lighter purple on hover */
-    background-color: rgba(155, 89, 182, 0.1); /* Light purple background on hover */
-    border-radius: 5px; /* Rounded corners for the link */
+    color: #bb86fc;
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 5px;
 }
-
-/* Navbar items on mobile */
 .navbar-collapse {
-    font-size: 14px; /* Smaller font size for mobile */
+    font-size: 14px;
 }
 
 .navbar-toggler-icon {
-    background-color: #9b59b6; /* Purple color for the hamburger icon */
+    background-color: #9b59b6;
 }
 
-/* Footer */
 footer {
-    background-color: #1c1c1c; /* Dark footer */
-    color: #aaa; /* Lighter text for footer */
+    background-color: #1c1c1c;
+    color: #aaa;
     text-align: center;
     padding: 20px 0;
     font-size: 14px;
-    border-top: 1px solid #333; /* Subtle footer border */
+    border-top: 1px solid #333;
 }
 
 footer a {
-    color: #9b59b6; /* Purple color for footer links */
+    color: #9b59b6;
     text-decoration: none;
 }
 
 footer a:hover {
-    color: #bb86fc; /* Lighter purple on hover */
+    color: #bb86fc;
 }
 
-/* Main Content */
 main {
     padding: 20px;
 }
 
-/* Minimalist Cards or Content Blocks */
 .web-content {
     background-color: #1c1c1c;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin-top: 20px;
 }
 
 h1 {
     font-size: 2rem;
-    color: #9b59b6; /* Purple headers */
+    color: #9b59b6;
     margin-bottom: 20px;
 }
 
-/* Links and Text */
 a {
     text-decoration: none;
-    color: inherit; /* Use inherited color */
-    transition: color 0.3s ease; /* Smooth color transition */
+    color: inherit;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #9b59b6; /* Purple on hover */
+    color: #9b59b6;
 }
 
-/* Mobile Styling */
 @media (max-width: 767px) {
     .navbar-brand img {
-        width: 100px; /* Smaller logo on mobile */
+        width: 100px;
     }
 
     .navbar-nav .nav-link {
-        padding: 8px 10px; /* Smaller padding on mobile */
-        font-size: 14px; /* Smaller font size for mobile */
+        padding: 8px 10px;
+        font-size: 14px;
     }
 
     .web-content {
-        padding: 15px; /* Less padding on mobile */
+        padding: 15px;
     }
 
     footer {
-        font-size: 12px; /* Smaller text in footer */
+        font-size: 12px;
     }
 
-    /* Center content on mobile */
     .container-fluid {
         padding-left: 10px;
         padding-right: 10px;
     }
 }
 .custom-btn {
-    color: #9b59b6; /* Purple text */
-    background-color: white; /* White background */
-    border: 2px solid #9b59b6; /* Purple border */
-    font-weight: bold; /* Optional: for bold text */
+    color: #9b59b6;
+    background-color: white;
+    border: 2px solid #9b59b6;
+    font-weight: bold;
 }
-/* Utility Classes */
+
 .text-purple {
     color: #9b59b6;
 }
