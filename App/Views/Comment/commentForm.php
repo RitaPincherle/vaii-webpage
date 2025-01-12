@@ -4,6 +4,7 @@
 /** @var array|null $errors */
 
 use App\Core\LinkGenerator;
+use App\Helpers\FileStorage;
 use App\Models\Comment;
 use App\Models\Post;
 
@@ -25,7 +26,7 @@ use App\Models\Post;
                     <h1 class="post-title"><?= htmlspecialchars(@$data['post']->getNazov()) ?></h1>
                 </div>
                 <div class="card-body">
-                    <img src="<?= @$data['post']->getIsURL() ?@$data['post']->getObrazok() : \App\Helpers\FileStorage::UPLOAD_DIR . '/' . @$data['post']->getObrazok(); ?>"
+                    <img src="<?= @$data['post']->getIsURL() ?@$data['post']->getObrazok() : FileStorage::UPLOAD_DIR . '/' . @$data['post']->getObrazok(); ?>"
                          alt="<?= htmlspecialchars(@$data['post']->getNazov()) ?>" class="img-fluid rounded mb-4 post-image">
                     <p class="post-author text">By: <?= htmlspecialchars(@$data['post']->getAutor()) ?></p>
                     <p class="post-text"><?= nl2br(htmlspecialchars(@$data['post']->getText())) ?></p>

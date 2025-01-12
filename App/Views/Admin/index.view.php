@@ -1,10 +1,12 @@
 <?php
 
+use App\Core\IAuthenticator;
+use App\Core\LinkGenerator;
 use \App\Models\User;
 $layout = 'root';
-/** @var \App\Core\IAuthenticator $auth
+/** @var IAuthenticator $auth
  * @var User[] $data
- * @var \App\Core\LinkGenerator $link
+ * @var LinkGenerator $link
  * */ ?>
 
 <div class="container py-5">

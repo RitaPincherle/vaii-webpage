@@ -1,1 +1,1 @@
-<?php require 'commentForm.php' ?>
+<?php require 'commentForm.php' ;

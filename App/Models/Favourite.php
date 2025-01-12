@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Model;
+use Exception;
 
 class Favourite extends Model
 {
@@ -38,6 +39,10 @@ class Favourite extends Model
     {
         $this->id_postu = $id_postu;
     }
+
+    /**
+     * @throws Exception
+     */
     public function getFavourites(?string $autor): array
     {
         return Favourite::getAll("id_autor =?", [$autor]);

@@ -98,6 +98,7 @@ use App\Helpers\FileStorage;
                         <?php endforeach;
                     endif;
                     ?>
+
                 </div>
             <?php else: ?>
                 <a href="<?= Configuration::LOGIN_URL ?>" class="text-light text-decoration-none">

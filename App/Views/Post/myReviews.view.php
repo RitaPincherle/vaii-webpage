@@ -1,9 +1,14 @@
 <?php
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 /** @var array $data */
-/** @var \App\Models\Post[] $data['movies'] */
-/** @var \App\Models\Post[] $data['series'] */
-/** @var \App\Models\Post[] $data['books'] */
+/** @var Post[] $data['movies'] */
+/** @var Post[] $data['series'] */
+/** @var Post[] $data['books'] */
+
+use App\Core\LinkGenerator;
+use App\Helpers\FileStorage;
+use App\Models\Post;
+
 ?>
 
 <div class="container mt-5">
@@ -18,7 +23,7 @@
                 <?php foreach ($data['movies'] as $post): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
-                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : \App\Helpers\FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
+                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
                                  alt="<?= htmlspecialchars($post->getNazov()) ?>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($post->getNazov()) ?></h5>
@@ -51,7 +56,7 @@
                 <?php foreach ($data['series'] as $post): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
-                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : \App\Helpers\FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
+                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
                                  alt="<?= htmlspecialchars($post->getNazov()) ?>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($post->getNazov()) ?></h5>
@@ -84,7 +89,7 @@
                 <?php foreach ($data['books'] as $post): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
-                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : \App\Helpers\FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
+                            <img src="<?= $post->getIsURL() ? $post->getObrazok() : FileStorage::UPLOAD_DIR . '/' . $post->getObrazok(); ?>"
                                  alt="<?= htmlspecialchars($post->getNazov()) ?>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($post->getNazov()) ?></h5>

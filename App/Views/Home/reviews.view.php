@@ -3,7 +3,7 @@
  * @var LinkGenerator $link
  * @var App\Core\IAuthenticator $auth */
 
-use App\Config\Configuration;
+
 use App\Core\LinkGenerator;
 use App\Helpers\FileStorage;
 

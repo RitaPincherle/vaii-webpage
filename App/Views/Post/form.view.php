@@ -1,8 +1,11 @@
 
 <?php
 
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 /** @var Array $data */
+
+use App\Core\LinkGenerator;
+
 if (!is_null(@$data['errors'])): ?>
     <?php foreach ($data['errors'] as $error): ?>
         <div class="alert alert-danger" role="alert">

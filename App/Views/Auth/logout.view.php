@@ -1,7 +1,9 @@
 <?php
 
+use App\Core\LinkGenerator;
+
 $layout = 'auth';
-/** @var \App\Core\LinkGenerator $link */
+/** @var LinkGenerator $link */
 ?>
 
 <div class="container-fluid">

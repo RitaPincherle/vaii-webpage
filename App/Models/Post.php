@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Model;
+use Exception;
 
 class Post extends Model
 {
@@ -90,6 +91,10 @@ class Post extends Model
     {
         $this->rating = $rating;
     }
+
+    /**
+     * @throws Exception
+     */
     public function setFavourites(): void
     {
        $this->favourites=Favourite::getAll("id_postu =?", [$this->id]);
@@ -97,6 +102,10 @@ class Post extends Model
     public function getFavourites(): array{
         return $this->favourites;
     }
+
+    /**
+     * @throws Exception
+     */
     public function getComments(): ?array{
         return Comment::getAll("id_postu =?", [$this->id]);
     }
