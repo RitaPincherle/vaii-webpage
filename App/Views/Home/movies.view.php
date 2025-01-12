@@ -22,11 +22,11 @@ use App\Helpers\FileStorage;
             <div class="quote-of-the-week bg-dark p-3 rounded shadow-sm">
                 <h4 class="text-purple text-center">Quote of the Week</h4>
                 <p class="text-light text-center">
-                    "A book is a dream that you hold in your hand." - Neil Gaiman
+                    "I'm gonna make him an offer he can't refuse." -The Godfather (1972)
                 </p>
             </div>
         </div>
-        </div>
+
 
         <!-- My Favourites Section -->
         <section class="my-favourites mt-4">
