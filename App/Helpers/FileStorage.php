@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use App\Core\HTTPException;
-
+//used from VAII
 class FileStorage
 {
     // Dir, where to store file

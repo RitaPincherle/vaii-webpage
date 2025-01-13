@@ -30,7 +30,7 @@ use App\Models\Post;
                                 <div class="d-flex justify-content-between">
                                     <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="btn custom-btn">View Details</a>
                                     <div class="post-actions">
-                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2"">
+                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>" title="Delete" class="delete-icon ml-2" onclick="return confirm('Are you sure you want to delete this post?');">
@@ -63,7 +63,7 @@ use App\Models\Post;
                                 <div class="d-flex justify-content-between">
                                     <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="btn custom-btn">View Details</a>
                                     <div class="post-actions">
-                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2"">
+                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2">
                                         <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>" title="Delete" class="delete-icon ml-2" onclick="return confirm('Are you sure you want to delete this post?');">
@@ -96,7 +96,7 @@ use App\Models\Post;
                                 <div class="d-flex justify-content-between">
                                     <a href="<?= $link->url('post.detail', ['id' => $post->getId()]) ?>" class="btn custom-btn">View Details</a>
                                     <div class="post-actions">
-                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2"">
+                                        <a href="<?= $link->url('post.edit', ['id' => $post->getId()]) ?>" title="Edit" class="edit-icon ml-2">
                                         <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a href="<?= $link->url('post.delete', ['id' => $post->getId()]) ?>" title="Delete" class="delete-icon ml-2" onclick="return confirm('Are you sure you want to delete this post?');">

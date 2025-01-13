@@ -7,6 +7,7 @@ use App\Core\DB\Connection;
 use App\Core\Responses\Response;
 use App\Models\Favourite;
 use App\Models\Post;
+use Exception;
 use PDO;
 
 /**
@@ -21,11 +22,14 @@ class HomeController extends AControllerBase
      * @param $action
      * @return bool
      */
-    public function authorize($action)
+    public function authorize($action): bool
     {
         return true;
     }
 
+    /**
+     * @throws Exception
+     */
     public function index(): Response
     {
         $posts = Post::getAll();
@@ -36,7 +40,7 @@ class HomeController extends AControllerBase
 
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function books(): Response
     {
@@ -49,7 +53,7 @@ class HomeController extends AControllerBase
             $author = $_SESSION['user'];
 
             // Get all favourites for the logged-in user
-            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favourites = (new Favourite())->getFavourites($author);
             $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
 
             foreach ($posts as $post) {
@@ -81,7 +85,7 @@ class HomeController extends AControllerBase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function series(): Response {
         $posts = Post::getAll();
@@ -92,7 +96,7 @@ class HomeController extends AControllerBase
         if ($this->app->getAuth()->isLogged()) {
             $author = $_SESSION['user'];
 
-            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favourites = (new Favourite())->getFavourites($author);
             $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
 
             foreach ($posts as $post) {
@@ -125,7 +129,7 @@ class HomeController extends AControllerBase
 
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function movies(): Response
     {
@@ -137,7 +141,7 @@ class HomeController extends AControllerBase
         if ($this->app->getAuth()->isLogged()) {
             $author = $_SESSION['user'];
 
-            $favourites = (new \App\Models\Favourite())->getFavourites($author);
+            $favourites = (new Favourite())->getFavourites($author);
             $favouritePostIds = array_map(fn($fav) => $fav->getIdPostu(), $favourites);
 
             foreach ($posts as $post) {
