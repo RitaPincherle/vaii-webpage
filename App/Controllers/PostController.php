@@ -24,22 +24,18 @@ class PostController extends AControllerBase
         switch ($action) {
             case 'edit' :
             case 'delete' :
-               // get id of post to check
                 $id = (int)$this->request()->getValue("id");
-                // get post from db
+
                 $postToCheck = Post::getOne($id);
-                // check if the logged login is the same as the post author
-                // if yes, he can edit and delete post
+
                 return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName() || $this->app->getAuth()->isAdmin();
             case 'upload':
-                // get id of post to check
                 $id = (int)$this->request()->getValue("id");
+
                 if ($id > 0) {
-                    // only author can save the edited post
                     $postToCheck = Post::getOne($id);
                     return $postToCheck->getAutor() == $this->app->getAuth()->getLoggedUserName() || $this->app->getAuth()->isAdmin();
                 } else {
-                    // anyone can add a new post
                     return $this->app->getAuth()->isLogged();
                 }
             default:
