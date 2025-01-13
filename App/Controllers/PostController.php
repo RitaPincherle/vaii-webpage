@@ -113,6 +113,7 @@ class PostController extends AControllerBase
 
     /**
      * @throws HTTPException
+     * @throws Exception
      */
     public function detail(): Response
     {
